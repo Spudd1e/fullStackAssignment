@@ -30,7 +30,7 @@ const authenticate_user = (req, res) => {
     if(error) return res.status(400).send({error_message : error.details[0].message})
 
     users.authenticateUser(req.body.username, req.body.password, (err, id) => {
-        if(err === 404) return res.status(404).send({error_message: err});
+        if(err === 400) return res.status(400).send({error_message: err});
         if(err) return res.sendStatus(500);
 
         users.getToken(id, (err, token) => {

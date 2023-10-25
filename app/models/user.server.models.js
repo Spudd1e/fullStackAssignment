@@ -25,7 +25,8 @@ const authenticateUser = (username, password, done) => {
 
     db.get(sql, [username], function (err, row) {
         if (err) return done(err)
-        if (!row) return done(404)//wrong username
+        console.log(row)
+        if (!row) return done(400)//wrong username
 
         if (row.salt === null) row.salt = ''
 
