@@ -1,9 +1,11 @@
 const db = require('../../database');
 const crypto = (require('crypto'));
 
-const addNewPost = (post, done) => {
+const addNewPost = (post,user_id, done) => {
     const sql = 'INSERT INTO posts (text, date_published, author_id) VALUES (?, ?, ?)';
-    let values = [post.text, Date.now(), 1]
+
+    
+    let values = [post.text, Date.now(), user_id]
 
     db.run(sql, values, function (err) {
         if (err)

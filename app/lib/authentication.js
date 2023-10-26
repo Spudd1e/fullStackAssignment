@@ -7,7 +7,6 @@ const isAuthorised = function(req, res, next){
         console.log(err, id)
         if(token === undefined || err || id === null || token === '')
             return res.sendStatus(401);
-
         next()
     })
 }
