@@ -38,8 +38,18 @@ const unfollower_user = (req, res) => {
     })
 }
 
+const search_user = (req, res) => {
+    let search = req.query.q
+    console.log("SEARCH VVV")
+    socials.searchUser(search, (err, result) => {
+        
+    })
+    return res.sendStatus(323)
+}
+
 module.exports = {
     get_single_user : get_single_user,
     follow_user : follow_user,
-    unfollow_user : unfollower_user
+    unfollow_user : unfollower_user,
+    search_user : search_user
 }
