@@ -1,5 +1,5 @@
 const db = require('../../database');
-const crypto = (require('crypto'));
+
 
 const addNewPost = (post, user_id, done) => {
     const sql = 'INSERT INTO posts (text, date_published, author_id) VALUES (?, ?, ?)';
@@ -14,7 +14,10 @@ const addNewPost = (post, user_id, done) => {
     })
 }
 const getSinglePost = (post_id, done) => {
-    const sql = 'SELECT p.post_id, p.date_published, p.text, u.user_id, u.first_name, u.last_name, u.username FROM posts p, users u WHERE p.post_id=? AND p.author_id = u.user_id';
+    const sql = `SELECT p.post_id, p.date_published, p.text, u.user_id, u.first_name, u.last_name, u.username
+        FROM posts p, users u 
+        WHERE p.post_id=? 
+        AND p.author_id = u.user_id`;
 
     db.get(sql, [post_id], function (err, post_details) {
         if (err) return done(err)
@@ -23,15 +26,18 @@ const getSinglePost = (post_id, done) => {
             return done(404);
         }
 
-        const sql = 'SELECT u.user_id, u.first_name, u.last_name, u.username FROM users u, likes l WHERE l.post_id=? AND l.user_id=u.user_id'
+        const sql = `SELECT u.user_id, u.first_name, u.last_name, u.username 
+            FROM users u, likes l 
+            WHERE l.post_id=? 
+            AND l.user_id=u.user_id`
         const likes = [];
         db.each(sql, [post_id], (err, row) => {
             if (err) return done(err);
             likes.push({
-                user_id: post_details.user_id,
-                first_name: post_details.first_name,
-                last_name: post_details.last_name,
-                username: post_details.username
+                user_id: row.user_id,
+                first_name: row.first_name,
+                last_name: row.last_name,
+                username: row.username
             })
         },
             (err, num_rows) => {
@@ -54,21 +60,25 @@ const getSinglePost = (post_id, done) => {
     })
 }
 const updatePost = (post_id, new_text, done) => {
-    const sql = "UPDATE posts SET text=? WHERE post_id=?";
+    const sql = `UPDATE posts SET text=? 
+        WHERE post_id=?`;
 
     db.run(sql, [new_text, post_id], (err) => {
         return done(err);
     })
 }
 const deletePost = (post_id, user_id, done) => {
-    const sql = "SELECT post_id, author_id FROM posts WHERE post_id=?"
+    const sql = `SELECT post_id, author_id 
+        FROM posts WHERE post_id=?`;
     db.get(sql, [post_id], (err, row) => {
         if (err) return done(err);
         if (!row) return done(404);
         if (row.author_id != user_id) {
             return done(403);
         }
-        const sql = "DELETE FROM posts WHERE post_id =?"
+        const sql = `DELETE 
+            FROM posts 
+            WHERE post_id =?`
         db.run(sql, post_id, (err) => {
             if(err) return done(err);
         })
@@ -110,13 +120,14 @@ const removeLike = (post_id, user_id, done) => {
         console.log("POST EXISTS")
         console.log(row)
     
-        const sql = 'SELECT l.post_id, l.user_id FROM likes l WHERE l.post_id=? AND l.user_id=?'
+        const sql = `SELECT l.post_id, l.user_id 
+            FROM likes l 
+            WHERE l.post_id=? 
+            AND l.user_id=?`
         db.get(sql, [post_id, user_id], (err, row) => {
             if(err) return done(err)
-            console.log("ROW PRINT")
-            console.log(row)
             if(!row) return done(403)
-            console.log("HAS LIKED")
+
             const sql = 'DELETE FROM likes WHERE post_id=? AND user_id = ?'
             db.run(sql, [post_id, user_id], (err) => {
                 console.log("DELETE")
