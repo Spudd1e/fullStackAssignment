@@ -90,12 +90,12 @@ const getSingleUser = (user_id, done) => {
                     if (err) return done(err)
                     posts.getSinglePost(row.post_id, (err, result) => {
                         if (err) return done(err)
-                        console.log(result)
+                        console.log("push")
                         response.posts.push(result)
                     })
-                }, (err, numRows) => {
-                return done(null, response)
-                    
+                }, async (err, numRows) => {
+                    await new Promise(r => setTimeout(r, 10000));
+                    return done(null, response)
                 })
             })
         })
