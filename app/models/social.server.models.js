@@ -46,7 +46,6 @@ const unfollowUser = (user_id, follower_id, done) => {
     })
 }
 const getSingleUser = (user_id, done) => {
-
     const response = {
         user_id: null,
         first_name: null,
@@ -57,16 +56,19 @@ const getSingleUser = (user_id, done) => {
         posts: []
     }
 
-    const sql = "SELECT user_id, first_name, last_name, username FROM users WHERE user_id = ?"
-    db.get(sql, user_id, (err, user) => {
+
+    const sql = `SELECT u.user_id, u.first_name, u.last_name, u.username 
+        FROM users u
+        WHERE user_id=?`
+    db.get(sql, user_id, (err, row) => {
         if (err) return done(err)
+        if (!row) return done(404)
+        response.user_id = row.user_id;
+        response.first_name = row.first_name;
+        response.last_name = row.last_name;
+        response.username = row.username;
 
-        response.user_id = user.user_id;
-        response.first_name = user.first_name;
-        response.last_name = user.last_name;
-        response.username = user.username;
-
-        const sql = `SELECT f.follower_id, u.first_name, u.last_name, u.username 
+        const sql = `SELECT u.user_id, u.first_name, u.last_name, u.username 
             FROM followers f, users u 
             WHERE f.user_id = ? 
             AND f.follower_id = u.user_id`;
@@ -86,20 +88,38 @@ const getSingleUser = (user_id, done) => {
             }, (err, count) => {
                 if (err) return done(err)
                 const sql = "SELECT post_id FROM posts WHERE author_id = ?"
+            let promises = []
                 db.each(sql, user_id, (err, row) => {
                     if (err) return done(err)
-                    posts.getSinglePost(row.post_id, (err, result) => {
-                        if (err) return done(err)
-                        console.log("push")
-                        response.posts.push(result)
+                    promises.push( new Promise(function (resolve, reject) {
+                        posts.getSinglePost(row.post_id, (err, result) => {
+                            if (err) return done(err)
+                            console.log("PUSH")
+
+                            resolve(result)
+                        })
+                    }));
+                    
+
+                },(err)=> {
+                    
+                    Promise.all(promises).then((values) => {
+                        console.log("DONE")
+                
+                        values.forEach((value) => {
+                            response.posts.push(value)
+                        })
+                        return done(null, response)
                     })
-                }, async (err, numRows) => {
-                    await new Promise(r => setTimeout(r, 10000));
-                    return done(null, response)
                 })
+                
+
             })
         })
-    })
+
+
+    }
+    )
 }
 
 
