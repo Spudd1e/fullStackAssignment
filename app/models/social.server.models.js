@@ -32,21 +32,22 @@ const unfollowUser = (user_id, follower_id, done) => {
             if (!row) return done(403);
 
 
-        const sql = `SELECT user_id, follower_id 
+            const sql = `SELECT user_id, follower_id 
             FROM followers 
             WHERE user_id =? 
             AND follower_id = ?`
-        db.get(sql, [user_id, follower_id], (err, row) => {
-            if (err) return done(err);
-            if (!row) return done(403);
+            db.get(sql, [user_id, follower_id], (err, row) => {
+                if (err) return done(err);
+                if (!row) return done(403);
 
-            const sql = `DELETE FROM followers 
+                const sql = `DELETE FROM followers 
             WHERE user_id =? 
             AND follower_id = ?`
 
-            db.run(sql, [user_id, follower_id], (err) => {
-                if (err) return done(err);
-                return done(null)
+                db.run(sql, [user_id, follower_id], (err) => {
+                    if (err) return done(err);
+                    return done(null)
+                })
             })
         })
     })
@@ -94,10 +95,10 @@ const getSingleUser = (user_id, done) => {
             }, (err, count) => {
                 if (err) return done(err)
                 const sql = "SELECT post_id FROM posts WHERE author_id = ?"
-            let promises = []
+                let promises = []
                 db.each(sql, user_id, (err, row) => {
                     if (err) return done(err)
-                    promises.push( new Promise(function (resolve, reject) {
+                    promises.push(new Promise(function (resolve, reject) {
                         posts.getSinglePost(row.post_id, (err, result) => {
                             if (err) return done(err)
                             console.log("PUSH")
@@ -105,27 +106,19 @@ const getSingleUser = (user_id, done) => {
                             resolve(result)
                         })
                     }));
-                    
-
-                },(err)=> {
-                    
+                }, (err) => {
                     Promise.all(promises).then((values) => {
                         console.log("DONE")
-                
+
                         values.forEach((value) => {
                             response.posts.push(value)
                         })
                         return done(null, response)
                     })
                 })
-                
-
             })
         })
-
-
-    }
-    )
+    })
 }
 
 
@@ -153,15 +146,82 @@ const searchUser = (search, done) => {
             return done(null, rows);
         })
     }
-
-
-
 }
+
+const getFeed = (user_id, done) => {
+    let feed = [];
+    let promises = []
+    if (user_id) {
+        const sql = `SELECT post_id 
+        FROM Posts WHERE author_id = ?`
+        db.each(sql, user_id, (err, row) => {
+            if (err) return done(err);
+            promises.push(new Promise(function (resolve) {
+                console.log("LOGGED IN: " + row.post_id)
+                posts.getSinglePost(row.post_id, (err, post) => {
+                    if (err) return done(err);
+                    resolve(post)
+                })
+            }))
+        }, (err) => {
+            const sql = `SELECT p.post_id
+            FROM Followers f, Posts p
+            WHERE f.follower_id =?1 AND (p.author_id = f.user_id)
+            ORDER BY p.date_published DESC`
+            db.each(sql, user_id, (err, row) => {
+                if(err) return done(err);
+
+                promises.push(new Promise(function(resolve){
+                    posts.getSinglePost(row.post_id, (err, post) => {
+                        if(err) return done(err)
+                        resolve(post)
+                    })
+                }))
+            },(err)=> {
+                Promise.all(promises).then((values) => {
+                    values.forEach((value) => {
+                        feed.push(value);
+                    })
+                    return done(null, feed);
+                })
+            })
+
+
+            
+        })
+    }
+    if(user_id === null) {
+        const sql = "SELECT post_id FROM Posts ORDER BY date_published DESC"
+        console.log(sql)
+        db.each(sql, (err, row) => {
+            if (err) return done(err)
+            console.log(row.post_id)
+            promises.push(new Promise(function (resolve) {
+                posts.getSinglePost(row.post_id, (err, post) => {
+
+                    if (err) return done(err)
+                    resolve(post)
+                })
+            }))
+        }, (err) => {
+            Promise.all(promises).then((values) => {
+                values.forEach((value) => {
+                    feed.push(value)
+                })
+                return done(null, feed)
+            })
+        })
+    }
+}
+
 
 module.exports = {
 
     getSingleUser: getSingleUser,
     followUser: followUser,
-    unfollowUser: unfollowUser
+    unfollowUser: unfollowUser,
+    searchUser: searchUser,
+    getFeed: getFeed
+
 
 }

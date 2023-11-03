@@ -70,10 +70,9 @@ const removeToken = (token, done) => {
 const getIdFromToken = (token, done) => {
     const sql = 'SELECT user_id FROM users WHERE session_token=?'
     db.get(sql, [token], (err, row) => {
+        
         if(err) return done(err)
         if(!row) return done(404)
-        console.log("GET ID FROM TOKEN RESULT: " + row.user_id)
-        console.log("USER ID: " + row.user_id)
         return done(null, row.user_id)
     })
 }

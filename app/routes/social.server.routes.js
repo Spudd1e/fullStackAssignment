@@ -12,4 +12,7 @@ module.exports = function(app){
 
     app.route('/search')
         .get(socials.search_user)
+
+    app.route('/feed')
+        .get(socials.get_feed);
 };
