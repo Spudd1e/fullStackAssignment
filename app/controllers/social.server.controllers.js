@@ -40,11 +40,14 @@ const unfollower_user = (req, res) => {
 
 const search_user = (req, res) => {
     let search = req.query.q
+    console.log(search)
     console.log("SEARCH VVV")
     socials.searchUser(search, (err, result) => {
-        
+        if(err == 400) res.sendStatus(400)
+        if(err) return res.sendStatus(500)
+        return res.status(200).send(result)
     })
-    return res.sendStatus(323)
+
 }
 
 module.exports = {

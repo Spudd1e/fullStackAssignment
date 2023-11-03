@@ -54,9 +54,11 @@ describe('Test searching of users', () => {
 
     // Test no q
     it('Should return 200 for a valid search with no search string', () => {
+
         return chai.request(SERVER_URL)
             .get("/search")
             .then((res) => {
+
                 expect(res).to.have.status(200)
                 expect(res.body).to.be.an('array')
                 expect(res.body.length).to.equal(10)
