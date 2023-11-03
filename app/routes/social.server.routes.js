@@ -8,4 +8,8 @@ module.exports = function(app){
     app.route('/users/:user_id/follow')
         .post(auth.isAuthorised, socials.follow_user)
         .delete(auth.isAuthorised, socials.unfollow_user)
+
+
+    app.route('/search')
+        .get(socials.search_user)
 };
