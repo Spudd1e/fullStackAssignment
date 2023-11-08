@@ -49,22 +49,6 @@ const search_user = (req, res) => {
 
 }
 
-const get_feed = (req, res) => {
-    let token = req.get('X-Authorization')
-    getIdFromToken(token, (err, id) => {
-        let user_id = -1;
-        if (err === 404)
-            user_id = null;
-        if (id)
-            user_id = id
-        if(user_id === -1)
-            return res.sendStatus(500)
-        socials.getFeed(user_id, (err, feed) => {
-            if (err) return res.sendStatus(500);
-            return res.status(200).send(feed);
-        })
-    })
-}
 
 
 module.exports = {
@@ -72,5 +56,4 @@ module.exports = {
     follow_user: follow_user,
     unfollow_user: unfollower_user,
     search_user: search_user,
-    get_feed: get_feed
 }

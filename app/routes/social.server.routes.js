@@ -9,10 +9,7 @@ module.exports = function(app){
         .post(auth.isAuthorised, socials.follow_user)
         .delete(auth.isAuthorised, socials.unfollow_user)
 
-
     app.route('/search')
         .get(socials.search_user)
 
-    app.route('/feed')
-        .get(socials.get_feed);
 };
