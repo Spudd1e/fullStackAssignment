@@ -3,7 +3,6 @@ const db = require("../../database")
 const crypto = require('crypto')
 
 const getHash = function (password, salt) {
-    console.log(password)
     return crypto.pbkdf2Sync(password, salt, 100000, 256, 'sha256').toString('hex');
 };
 
@@ -25,7 +24,7 @@ const authenticateUser = (username, password, done) => {
 
     db.get(sql, [username], function (err, row) {
         if (err) return done(err)
-        console.log(row)
+
         if (!row) return done(400)//wrong username
 
         if (row.salt === null) row.salt = ''

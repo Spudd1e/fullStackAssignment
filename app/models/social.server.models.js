@@ -101,15 +101,12 @@ const getSingleUser = (user_id, done) => {
                     promises.push(new Promise(function (resolve, reject) {
                         posts.getSinglePost(row.post_id, (err, result) => {
                             if (err) return done(err)
-                            console.log("PUSH")
 
                             resolve(result)
                         })
                     }));
                 }, (err) => {
                     Promise.all(promises).then((values) => {
-                        console.log("DONE")
-
                         values.forEach((value) => {
                             response.posts.push(value)
                         })
@@ -124,12 +121,9 @@ const getSingleUser = (user_id, done) => {
 
 const searchUser = (search, done) => {
     let value = ('%' + search + '%')
-
     if (search === undefined) {
         const sql = `SELECT user_id, first_name, last_name, username FROM users`
         db.all(sql, (err, rows) => {
-            console.log(err)
-            console.log("HERE")
             if (err) return done(err)
             if (!rows) return done(400)
             return done(null, rows);
@@ -139,8 +133,6 @@ const searchUser = (search, done) => {
             FROM users 
             WHERE first_name LIKE ?1 OR last_name LIKE ?1 OR username LIKE ?1`
         db.all(sql, value, (err, rows) => {
-            console.log(err)
-            console.log("HERE")
             if (err) return done(err)
             if (!rows) return done(400)
             return done(null, rows);

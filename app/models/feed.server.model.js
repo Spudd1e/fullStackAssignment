@@ -9,7 +9,6 @@ const getFeed = (user_id, done) => {
         db.each(sql, user_id, (err, row) => {
             if (err) return done(err);
             promises.push(new Promise(function (resolve) {
-                console.log("LOGGED IN: " + row.post_id)
                 posts.getSinglePost(row.post_id, (err, post) => {
                     if (err) return done(err);
                     resolve(post)
@@ -40,13 +39,10 @@ const getFeed = (user_id, done) => {
     }
     if(user_id === null) {
         const sql = "SELECT post_id FROM Posts ORDER BY date_published DESC"
-        console.log(sql)
         db.each(sql, (err, row) => {
             if (err) return done(err)
-            console.log(row.post_id)
             promises.push(new Promise(function (resolve) {
                 posts.getSinglePost(row.post_id, (err, post) => {
-
                     if (err) return done(err)
                     resolve(post)
                 })

@@ -9,7 +9,7 @@ const add_new_user = (req, res) => {
         password : Joi.string().regex(/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[*@£%^&*()!]).{8,32}$/).required()
     });
     const {error} = schema.validate(req.body)
-    console.log(error);
+
     if(error)   return res.status(400).send({error_message : error.details[0].message});
     let user = Object.assign({}, req.body);
     users.addNewUser(user,(err, result)=> {
@@ -28,19 +28,15 @@ const authenticate_user = (req, res) => {
 
     const {error} = schema.validate(req.body);
     if(error) return res.status(400).send({error_message : error.details[0].message})
-
     users.authenticateUser(req.body.username, req.body.password, (err, id) => {
         if(err === 400) return res.status(400).send({error_message: err});
         if(err) return res.sendStatus(500);
 
         users.getToken(id, (err, token) => {
             if (err) return res.sendStatus(500);
-
             if(token){
-                console.log("token Exists")
                 return res.status(200).send({user_id : id, session_token: token})
             }else{
-                console.log("Token created")
                 users.setToken(id, (err, token) =>{
                     if(err) return res.sendStatus(500);
                     return res.status(200).send({user_id :id, session_token : token})

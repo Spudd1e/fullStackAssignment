@@ -18,7 +18,6 @@ const get_feed = (req, res) => {
     })
 }
 
-
 module.exports = {
     get_feed: get_feed
 }

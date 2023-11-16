@@ -1,12 +1,12 @@
 const db = require('../../database');
-
+const Filter = require('bad-words')
+const filter = new Filter()
 
 const addNewPost = (post, user_id, done) => {
     const sql = 'INSERT INTO posts (text, date_published, author_id) VALUES (?, ?, ?)';
-
-
-    let values = [post.text, Date.now(), user_id]
-
+    text = filter.clean(post.text)
+    
+    let values = [text, Date.now(), user_id]
     db.run(sql, values, function (err) {
         if (err)
             return done(err);
@@ -22,7 +22,6 @@ const getSinglePost = (post_id, done) => {
     db.get(sql, [post_id], function (err, post_details) {
         if (err) return done(err)
         if (!post_details) {
-            console.log("No post details")
             return done(404);
         }
 
@@ -116,10 +115,6 @@ const removeLike = (post_id, user_id, done) => {
     db.get(sql, [post_id], function(err, row){
         if (err) return done(err);
         if (!row) return done(404);
-
-        console.log("POST EXISTS")
-        console.log(row)
-    
         const sql = `SELECT l.post_id, l.user_id 
             FROM likes l 
             WHERE l.post_id=? 
@@ -130,8 +125,7 @@ const removeLike = (post_id, user_id, done) => {
 
             const sql = 'DELETE FROM likes WHERE post_id=? AND user_id = ?'
             db.run(sql, [post_id, user_id], (err) => {
-                console.log("DELETE")
-                console.log(err )
+
                 if (err) return done(err)
                 return done(null)
             })

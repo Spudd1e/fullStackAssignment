@@ -31,7 +31,7 @@ const get_post = (req, res) => {
     posts.getSinglePost(post_id, (err, result) => {
         if (err === 404) return res.sendStatus(404);
         if (err) return res.sendStatus(500);
-        console.log(result)
+
         return res.status(200).send(result)
     })
 
@@ -44,19 +44,15 @@ const update_post = (req, res) => {
             if (err === 404) {
                 return res.sendStatus(404)
             }
-
             if(post.author.user_id !== id) return res.sendStatus(403)
             if (err) return res.sendStatus(500);
-
             const schema = Joi.object({
                 "text": Joi.string().required()
             })
 
             const { error } = schema.validate(req.body)
             if (error) return res.status(400).send(error.details[0].message)
-            console.log("TEXT IS VALID ")
             if (post.text === req.body.text) {
-                console.log("TEXT IS SAME AS PREVIOUS")
                 return res.sendStatus(200);
             }
             posts.updatePost(post_id, req.body.text, (err) => {
