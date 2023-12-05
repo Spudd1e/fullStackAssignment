@@ -4,8 +4,10 @@ const followUser = (user_id, follower_id, done) => {
     const sql = "SELECT user_id FROM users WHERE user_id = ?"
     db.get(sql, [user_id], (err, row) => {
         if (err) return done(500);
-
         if (!row) return done(404);
+        // if(user_id === follower_id){
+        //     return done(401);
+        // }
         const sql = "SELECT user_id, follower_id FROM followers WHERE user_id=? AND follower_id=?"
         db.get(sql, [user_id, follower_id], (err, row) => {
             if (err) return done(500);
