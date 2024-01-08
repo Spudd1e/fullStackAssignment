@@ -3,12 +3,12 @@ import PostView from './PostView.vue';
 
 <template>
     <div>
-        <button @click="handleEditPost ">Edit</button>
+        <button class="rounded-md p-2 w-fit text-blue-400" @click="handleEditPost ">Edit</button>
     </div>
 </template>
 <script>
 
-import PostView from './PostView.vue';
+import PostView from '../../components/PostView.vue'
 
 
 export default {

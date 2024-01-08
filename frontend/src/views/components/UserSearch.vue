@@ -1,56 +1,55 @@
 <template>
-    <h1>Search</h1>
-    <input type="text" @input="searchUsers" v-model="search" />
-    <ul :key="users">
-        <li v-for="user in users">
-            <User :user="user" :key="user" :following="followingList.includes(user.user_id)" />
-        </li>
-    </ul>
+    <div class="flex w-3/4 h-3/4 flex-col items-center">
+        <label for="userSearch">Search User</label>
+        <input type="text" name="userSearch" @input="searchUsers" v-model="search" />
+
+        <div class="w-11/12 overflow-hidden overflow-y-scroll">
+            <ul :key="users">
+                <li v-for="user in users" class="last-of-type:mb-10" @click="handleSelect">
+                    <User :user="user" :key="user" />
+                </li>
+            </ul>
+        </div>
+    </div>
 </template>
 
 <script>
+
 import { socialService } from "../../services/social.service"
-import { userService } from "../../services/user.service";
+
 import User from "./User.vue";
 
 
 export default {
-    inject:["emitter"],
-    props:['followingList'],
+    inject: ["emitter"],
+    props: ['followingList'],
     data() {
         return {
             search: "",
             users: [],
         };
     },
-    mounted(){
+    mounted() {
         this.emitter.on("updateFollowing", () => {
             this.searchUsers();
         })
     },
-    unmounted(){
+    unmounted() {
         this.emitter.off("updateFollowing")
     },
     methods: {
+        handleSelect(){
+            this.emitter.emit('updateProfile')
+            this.$emit('close')
+        },
         searchUsers() {
             socialService.search(this.search)
                 .then((response) => {
                     this.users = response
                 })
-        },
-        getFollowing() {
-            if (localStorage.getItem('user_id')) {
-                userService.getSingleUser(localStorage.getItem("user_id"))
-                    .then(user => {
-                        this.following = []
-                        user.following.forEach(user => {
-                            this.following.push(user.user_id)
-                        })
-                    })
-            }
         }
     },
-    components: { User, User }
+    components: { User }
 }
 
 </script>

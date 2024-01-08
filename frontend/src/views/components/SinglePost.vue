@@ -9,7 +9,7 @@
             <div>
                 <p>Post Id: {{ post.post_id }}</p>
                 <p>Likes: {{ post.likes.length }}</p>
-                <p>Date: {{ new Date(post.timestamp).toString().slice(0, -31) }}</p>
+                <p>Date: {{ post.timestamp}}</p>
             </div>
         </div>
         <br />
@@ -34,8 +34,21 @@ export default {
         postService.getSinglePost(this.$route.params.id)
             .then((post) => {
                 this.post = post
+                this.post.timestamp = this.formatDate(new Date(post.timestamp))
             })
             .catch(error => this.error = error)
+    },
+    methods: {
+        formatDate(date){
+            let day = date.getDate().toString().padStart(2, "0")
+            let month = date.getMonth().toString().padStart(2, "0")
+            let year = date.getFullYear();
+            let hour = date.getHours().toString().padStart(2, "0")
+            let minutes = date.getMinutes().toString().padStart(2, "0")
+
+            return day + "/" + month + "/" + year + " at " + hour + ":" + minutes
+
+        }   
     }
 }
 </script>

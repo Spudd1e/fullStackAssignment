@@ -1,26 +1,15 @@
 <template>
-    <div class="main">
-        <!-- <PostView v-if="newPost" :type="'newPost'" :edit_id="null" edit_text="" @close="newPost = false" /> 
-        <PostView v-if="editPost" :type="'editPost'" v-model:edit_id="this.editId" v-model:edit_text="this.editText" @close="editPost = false" /> -->
-
-
-        <div class="column">
-            <h1>Feed</h1>
-            <button v-if="isLoggedIn"  @click="newPost">New Post</button>
-            <div class="feedCol">
-                <Feed :followingList="followingList"  />
-
-            </div>
-        </div>
-        <div class="column searchCol">
-            <UserSearch :followingList="followingList" />
+    <div class="w-full flex max-h-screen ">
+        <div class="flex flex-col w-full">
+            <button v-if="isLoggedIn"  @click="newPost" class="p-2 rounded-lg shadow-lg shadow-black drop-shadow-sm  bg-slate-800 text-white w-fit self-center m-2">New Post</button>
+            <Feed class="mt-2" :followingList="followingList"  />
         </div>
     </div>
 </template>
 
 <script>
 
-import Feed from '../components/Feed.vue'
+import Feed from '../components/Feed.vue';
 import PostView from '../components/PostView.vue';
 import UserSearch from '../components/UserSearch.vue';
 import { userService } from '../../services/user.service';
@@ -35,8 +24,6 @@ export default {
         }
     },
     mounted() {
-
-        this.emitter.emit("log")
 
         this.emitter.on("updateFollowing", () => {
             this.getFollowing()
@@ -67,38 +54,6 @@ export default {
     },
     components: { Feed, UserSearch, PostView }
 }
+
 </script>
 
-<style>
-.column {
-    border: 1px solid black;
-    width: 50%;
-    z-index: -1;
-    position: sticky;
-}
-
-.feedCol,
-.searchCol {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: 80%;
-    overflow-y: 100vh;
-    overflow: auto;
-}
-
-.column {
-    flex: 2;
-}
-
-.searchCol {
-    flex: 1;
-}
-
-.main {
-    width: 100vw;
-    display: flex;
-    height: 95vh;
-    position: sticky;
-    top: 5vh;
-}</style>

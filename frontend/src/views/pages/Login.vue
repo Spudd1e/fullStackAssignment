@@ -33,16 +33,7 @@ export default {
         }
     },
     methods: {
-        togglePassView(){
-            const fields = document.getElementsByClassName("password")
-            for(let field of fields){
-                if(field.type === "password"){
-                    field.type = "text"
-                }else{
-                    field.type = "password"
-                }
-            }
-        },
+        
 
 
         handleSubmit(e) {

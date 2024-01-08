@@ -127,7 +127,6 @@ const searchUser = (search, done) => {
         const sql = `SELECT user_id, first_name, last_name, username FROM users`
         db.all(sql, (err, rows) => {
             if (err) return done(err)
-            if (!rows) return done(400)
             return done(null, rows);
         })
     } else {
@@ -136,7 +135,6 @@ const searchUser = (search, done) => {
             WHERE first_name LIKE ?1 OR last_name LIKE ?1 OR username LIKE ?1`
         db.all(sql, value, (err, rows) => {
             if (err) return done(err)
-            if (!rows) return done(400)
             return done(null, rows);
         })
     }

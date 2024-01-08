@@ -110,6 +110,9 @@ const likePost = (post_id) => {
             throw "server error"
         }
     })
+    .catch(error => {
+        console.log(error, "HEY")
+    })
 }
 const unlikePost = (post_id) => {
     return fetch("http://localhost:3333/posts/" + post_id + "/like", {

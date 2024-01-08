@@ -5,7 +5,7 @@
 
 </template>
 <script>
-import { postService } from '../../services/post.service';
+import { postService } from '../../../services/post.service';
 export default{
     props:['post_id'],
     inject:['emitter'],
@@ -20,8 +20,8 @@ export default{
             postService.deletePost(post_id)
             .then((response) => {
                 this.emitter.emit("updateProfile")
-
                 this.emitter.emit("loadFeed")
+                this.emitter.emit("deleted")
             })
         }
     }
