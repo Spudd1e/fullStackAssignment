@@ -1,5 +1,5 @@
 <template>
-  <div v-if="post" class="flex w-[80vw] flex-col items-center dark:text-white">
+  <div v-if="post" class="flex w-full h-[90vh] flex-col items-center dark:text-white">
     <div
       class="m-6 flex w-1/2 flex-col items-center rounded-lg bg-[#EEEEEE] p-2 dark:bg-[#2b2b2f]"
     >
@@ -9,12 +9,13 @@
             <h1 class="text-3xl">
               {{ post.author.first_name + " " + post.author.last_name }}|
             </h1>
-            <h1 class="mr-2 text-3xl text-violet-800">
+            <h1 class="mr-2 text-3xl text-violet-400">
               @{{ post.author.username }}
             </h1>
           </div>
         </div>
       </router-link>
+      
       <div class="flex justify-evenly">
         <p class="p-4">
           Post Id:
@@ -49,7 +50,8 @@
 </template>
 <script>
 import { postService } from "../../services/post.service";
-import EditPostButton from "./EditPostButton.vue";
+import EditPostButton from "../components/EditPostButton.vue";
+
 
 export default {
   data() {
@@ -79,6 +81,6 @@ export default {
       return day + "/" + month + "/" + year + " at " + hour + ":" + minutes;
     },
   },
-  components: { EditPostButton },
+  components: { EditPostButton},
 };
 </script>

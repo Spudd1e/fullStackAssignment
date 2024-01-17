@@ -14,6 +14,8 @@ import { faSignIn } from "@fortawesome/free-solid-svg-icons";
 import { faUserPlus } from "@fortawesome/free-solid-svg-icons";
 import { faThumbsUp } from "@fortawesome/free-solid-svg-icons";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
+import { faUserMinus } from "@fortawesome/free-solid-svg-icons";
+
 
 library.add(
   faUser,
@@ -24,6 +26,8 @@ library.add(
   faUserPlus,
   faThumbsUp,
   faSpinner,
+  faUserMinus
+  
 );
 
 const app = createApp(App);

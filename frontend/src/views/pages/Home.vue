@@ -1,17 +1,14 @@
 <template>
-  <div class="flex max-h-screen w-[80vw] flex-col items-center">
+  <div class="w-screen h-[90vh] flex-col items-center">
     <div class="flex h-full w-full flex-col items-center">
-      <button
-        v-if="isLoggedIn"
-        @click="newPost"
-        class="m-2 w-3/4 rounded-lg bg-violet-900 p-2 text-white transition hover:bg-violet-900"
-      >
+      <button v-if="isLoggedIn" @click="newPost"
+        class="m-2 w-3/4 rounded-lg bg-violet-800 p-2 text-white transition hover:bg-violet-900">
         New Post
       </button>
 
       <Feed class="mt-2" :followingList="followingList" />
     </div>
-    <router-view />
+
   </div>
 </template>
 

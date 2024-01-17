@@ -4,7 +4,7 @@ import { auth } from "../services/authentication.service";
 import Home from "../views/pages/Home.vue";
 
 import NotFound from "../views/pages/NotFound.vue";
-import SinglePost from "../views/components/SinglePost.vue";
+import SinglePost from "../views/pages/SinglePost.vue";
 import Profile from "../views/pages/Profile.vue";
 import ModalView from "../views/components/Modalview.vue";
 

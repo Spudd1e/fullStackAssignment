@@ -1,13 +1,13 @@
 <template>
   <div
-    class="flex w-1/12 items-center justify-evenly rounded-lg bg-[#DDDDDD] p-2 transition-all hover:cursor-pointer hover:bg-[#CCCCCC] dark:bg-[#3b3b3f] hover:dark:bg-[#4b4b4f]"
+    class="flex w-1/12 max-sm:w-1/4 items-center  justify-evenly rounded-lg bg-[#DDDDDD] p-2 max-sm:p-1 transition-all hover:cursor-pointer hover:bg-[#CCCCCC] dark:bg-[#3b3b3f] hover:dark:bg-[#4b4b4f]"
     @click="toggleLike"
   >
-    <div class="w-5/12">
+    <div class="w-5/12 max-sm:w-1/3">
       <font-awesome-icon
         icon="thumbs-up"
         v-if="liked"
-        class="text-violet-600 dark:text-violet-800"
+        class="text-violet-400 "
       />
 
       <font-awesome-icon

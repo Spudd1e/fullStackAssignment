@@ -3,7 +3,7 @@
     class="fixed left-0 top-0 z-10 flex h-screen w-screen items-center justify-center bg-black bg-opacity-50"
   >
     <div
-      class="animate-slide flex h-3/4 w-1/2 flex-col items-center justify-center rounded-lg bg-white text-center dark:bg-[#1b1b1f] dark:text-white"
+      class="animate-slide flex h-3/4 w-1/2 max-md:w-3/4 flex-col items-center justify-center rounded-lg bg-white text-center dark:bg-[#1b1b1f] dark:text-white"
     >
       <NewPost
         v-if="modalType === 'newPost'"
