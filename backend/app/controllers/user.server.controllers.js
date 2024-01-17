@@ -14,7 +14,7 @@ const add_new_user = (req, res) => {
     let user = Object.assign({}, req.body);
     users.addNewUser(user,(err, result)=> {
         if(err) {
-            return res.sendStatus(400);
+            return res.status(400).send({error_message : "Username Taken"});
         }
         return res.status(201).send({user_id : result})
     })

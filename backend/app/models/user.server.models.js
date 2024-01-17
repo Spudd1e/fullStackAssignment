@@ -9,9 +9,10 @@ const getHash = function (password, salt) {
 const addNewUser = (user, done) => {
     const salt = crypto.randomBytes(64);
     const hash = getHash(user.password, salt);
-
+    let firstName = user.first_name.charAt(0).toUpperCase() + user.first_name.slice(1);
+    let lastName = user.last_name.charAt(0).toUpperCase() + user.last_name.slice(1);
     const sql = 'INSERT INTO users (first_name, last_name, username, password, salt) VALUES (?, ?, ?, ?, ?)'
-    let values = [user.first_name, user.last_name, user.username, hash, salt.toString('hex')]
+    let values = [firstName, lastName, user.username, hash, salt.toString('hex')]
 
     db.run(sql, values, function (err) {
         if (err) return done(err)
@@ -34,7 +35,7 @@ const authenticateUser = (username, password, done) => {
         if (row.password === getHash(password, salt)) {
             return done(false, row.user_id);
         } else {
-            return done(404)//wrong password
+            return done(400)//wrong password
         }
 
     })

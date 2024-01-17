@@ -1,48 +1,41 @@
-
-
 <template>
-
-        <PostList  :posts="posts" :following="followingList" />
-
+  <PostList :posts="posts" :following="followingList" />
 </template>
 
 <script>
-import Post from './Post.vue';
-import { postService } from '../../services/post.service'
-import PostList from './PostList.vue';
-
+import Post from "./Post.vue";
+import { postService } from "../../services/post.service";
+import PostList from "./PostList.vue";
 
 export default {
-    props: ['followingList'],
-    inject: ['emitter'],
-    mounted() {
-        this.emitter.on("loadFeed", () => this.getFeed())
+  props: ["followingList"],
+  inject: ["emitter"],
+  mounted() {
+    this.emitter.on("loadFeed", () => this.getFeed());
+  },
+  unmounted() {
+    this.emitter.off("loadFeed");
+  },
+  methods: {
+    getFeed() {
+      this.emitter.emit("updateFollowing");
 
+      postService
+        .getFeed()
+        .then((posts) => {
+          this.posts = posts;
+        })
+        .catch((error) => {
+          this.error = error;
+        });
     },
-    unmounted() {
-        this.emitter.off("loadFeed")
-    },
-    methods: {
-        getFeed() {
-            this.emitter.emit("updateFollowing")
-
-            postService.getFeed()
-                .then(posts => {
-                    this.posts = posts;
-
-                })
-                .catch(error => {
-                    this.error = error
-                })
-        }
-    },
-    data() {
-        return {
-            posts: [],
-            following: []
-        };
-    },
-    components: { Post, PostList }
-}
-
+  },
+  data() {
+    return {
+      posts: [],
+      following: [],
+    };
+  },
+  components: { Post, PostList },
+};
 </script>

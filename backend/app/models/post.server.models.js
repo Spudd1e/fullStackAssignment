@@ -59,10 +59,11 @@ const getSinglePost = (post_id, done) => {
     })
 }
 const updatePost = (post_id, new_text, done) => {
+    let updatedText = filter.clean(new_text)
     const sql = `UPDATE posts SET text=? 
         WHERE post_id=?`;
 
-    db.run(sql, [new_text, post_id], (err) => {
+    db.run(sql, [updatedText, post_id], (err) => {
         return done(err);
     })
 }

@@ -2,11 +2,12 @@ const express = require('express');
 const morgan  = require('morgan');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const nocache = require('nocache');
 
 
 const app = express();
 app.use(cors());
-
+app.use(nocache())
 // Server port
 const HTTP_PORT = 3333;
 

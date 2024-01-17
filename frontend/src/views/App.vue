@@ -1,162 +1,211 @@
 <template>
-  <div class="flex h-screen bg-[#F5F5F5] dark:bg-[#1b1b1f]" :key="isLoggedIn">
-    <div class="p-4 h-full w-1/5">
+  <div
+    class="flex h-screen w-screen bg-[#F5F5F5] dark:bg-[#1b1b1f]"
+    :key="isLoggedIn"
+  >
+    <div
+      class="h-full w-[20vw] border-r-[0.5px] border-[#1b1b1f] dark:border-[#3b3b3f]"
+    >
       <nav
-        class="flex flex-col items-center justify-evenly text-center sticky top-0 text-black dark:text-white h-full p-2 rounded-xl border ">
+        class="sticky top-0 flex h-full w-full flex-col items-center justify-evenly rounded-xl p-2 text-center text-black dark:text-white"
+      >
+        <h1
+          class="mt-10 justify-self-start rounded-md text-xl underline decoration-purple-800 decoration-4"
+        >
+          CHIRRUP!
+        </h1>
 
-        <h1 class="justify-self-start text-xl rounded-md mt-10 decoration-purple-800 underline decoration-4">
-          CHIRRUP!</h1>
-
-        <div class="pt-5 pb-5 w-3/4">
+        <div class="w-3/4 pb-5 pt-5">
           <router-link to="/">
-            <div class="hover:bg-gray-400 w-full rounded-lg p-2 transition">
+            <div
+              class="w-full rounded-lg p-2 transition hover:bg-[#DDDDDD] dark:bg-inherit hover:dark:bg-[#3b3b3f]"
+            >
               <font-awesome-icon icon="house" />
               <p>Home</p>
             </div>
           </router-link>
         </div>
 
-
-        <div class="pt-5 pb-5 w-3/4">
-          <div class="hover:bg-gray-400 w-full rounded-lg p-2 transition cursor-pointers" @click="search">
-            <font-awesome-icon icon="search"  />
+        <div class="w-3/4 pb-5 pt-5">
+          <div
+            class="w-full cursor-pointer rounded-lg p-2 transition hover:bg-[#DDDDDD] dark:bg-inherit hover:dark:bg-[#3b3b3f]"
+            @click="search"
+          >
+            <font-awesome-icon icon="search" />
             <p>Search</p>
           </div>
         </div>
 
-
-        <div v-if="isLoggedIn" class="pt-5 pb-5 w-3/4">
+        <div v-if="isLoggedIn" class="w-3/4 pb-5 pt-5">
           <div>
             <router-link to="/profile">
-              <div class="hover:bg-gray-400 w-full rounded-lg p-2 transition">
-              <font-awesome-icon icon="user"/>
+              <div
+                class="w-full rounded-lg p-2 transition hover:bg-[#DDDDDD] dark:bg-inherit hover:dark:bg-[#3b3b3f]"
+              >
+                <font-awesome-icon icon="user"  />
                 <p>Profile</p>
               </div>
             </router-link>
           </div>
         </div>
 
+        <div v-if="!isLoggedIn" class="w-3/4 pb-5 pt-5">
+          <div>
 
-        <div v-if="!isLoggedIn" class="pt-5 pb-5 w-3/4">
-          <div @click="handleLogin" class="hover:bg-gray-400 w-full rounded-lg p-2 transition cursor-pointer">
-            <font-awesome-icon icon="sign-in" />
+              <div
+                class="w-full rounded-lg p-2 transition hover:bg-[#DDDDDD] dark:bg-inherit hover:dark:bg-[#3b3b3f]"
+              @click="login">
+                <font-awesome-icon icon="sign-in"/>
+                <p>Login</p>
+              </div>
 
-            <p>Login</p>
           </div>
         </div>
 
-
-        <div v-if="!isLoggedIn" class="pt-5 pb-5 w-3/4">
-          <div @click="handleNewUser" class="hover:bg-gray-400 w-full rounded-lg p-2 transition cursor-pointer">
+        <div v-if="!isLoggedIn" class="w-3/4 pb-5 pt-5">
+          <div
+            @click="handleNewUser"
+            class="w-full cursor-pointer rounded-lg p-2 transition hover:bg-[#DDDDDD] dark:bg-inherit hover:dark:bg-[#3b3b3f]"
+          >
+            <font-awesome-icon icon="user-plus" />
             <p>Sign Up</p>
           </div>
         </div>
 
-
-        <div v-else @click="logout" class="pt-5 pb-5 w-3/4">
-          <div class="hover:bg-gray-400 w-full rounded-lg p-2 transition cursor-pointer">
+        <div v-else @click="logout" class="w-3/4 pb-5 pt-5">
+          <div
+            class="w-full cursor-pointer rounded-lg p-2 transition hover:bg-[#DDDDDD] dark:bg-inherit hover:dark:bg-[#3b3b3f]"
+          >
             <font-awesome-icon icon="sign-out" />
             <p>Logout</p>
           </div>
         </div>
-        <div class="p-10">
-        </div>
+        <div class="p-5"></div>
       </nav>
     </div>
-    <PostView v-if="postModalVisible" :modalType="modalType" v-model:text="this.editText" v-model:id="this.edit_id"
-      @close="handleClose" />
-
+    <div class="animate-slide-fade">
+      <ModalView
+        v-if="postModalVisible"
+        :modalType="modalType"
+        v-model:text="this.editText"
+        v-model:id="this.edit_id"
+        :info="info"
+        @close="handleClose"
+      />
+    </div>
     <router-view />
   </div>
 </template>
 
-
 <script>
+import { usePreferredDark } from "@vueuse/core";
 
-import { usePreferredDark } from '@vueuse/core'
-
-import { userService } from '../services/user.service'
-import PostView from './components/PostView.vue'
+import { userService } from "../services/user.service";
+import ModalView from "./components/ModalView.vue";
 export default {
-  inject: ['emitter'],
+  inject: ["emitter"],
   data() {
     return {
       isLoggedIn: localStorage.getItem("user_id"),
       postModalVisible: false,
       modalType: null,
       editText: "",
-      edit_id: null
+
+      edit_id: null,
+      info: null,
     };
   },
   inject: ["emitter"],
   methods: {
+    handleLoginRoute() {
+      if (this.$route.path == "/") {
+        this.$router.push({ name: "homeLogin" });
+      }
+    },
     search() {
-      this.postModalVisible = true
-      this.modalType = "userSearch"
+      this.postModalVisible = true;
+      this.modalType = "userSearch";
     },
     handleNewUser() {
-      this.postModalVisible = true,
-        this.modalType = "newUser"
+      (this.postModalVisible = true), (this.modalType = "newUser");
     },
     handleClose() {
       this.postModalVisible = false;
-      this.modalType = null,
-        this.editText = "",
-        this.edit_id = null
+      (this.modalType = null), (this.editText = ""), (this.edit_id = null);
     },
     logout() {
-      userService.logout()
-        .then(response => {
-          this.emitter.emit("log");
-          this.emitter.emit("loadFeed");
-          this.$router.push("/");
-        });
+      if(this.$route.path == '/profile'){
+        localStorage.setItem('profileId', localStorage.getItem("user_id"))
+      }
+      userService.logout().then((response) => {
+        localStorage.removeItem("postDrafts");
+        this.isLoggedIn = localStorage.getItem("user_id");
+        this.handleClose();
+        this.emitter.emit("loadFeed");
+        if(this.$route.path == '/profile'){
+          this.emitter.emit('updateProfile')
+        }
+        
+      });
     },
-    handleLogin() {
-      this.emitter.emit("login")
+    login(){
+      this.modalType = "login";
+      this.postModalVisible = true;
     }
-
   },
   mounted() {
-    const isDark = usePreferredDark
+    const isDark = usePreferredDark;
     if (isDark) {
-      document.getElementById('html').className = "dark"
+      document.getElementById("html").className = "dark";
     }
+    
+    this.emitter.emit("loadFeed");
 
-
-    this.emitter.emit("loadFeed")
-    this.emitter.on('close', this.handleClose)
-    this.emitter.on("newPost", () => {
+    this.emitter.on("newPost", ([text, id]) => {
       this.modalType = "newPost";
+      this.editText = text;
+      this.edit_id = id;
       this.postModalVisible = true;
-    })
-
-    this.emitter.on("editPost", ([text, post_id]) => {
-      this.edit_id = post_id
-      this.editText = text
-      this.modalType = "editPost"
-      this.postModalVisible = true;
-    })
-    this.emitter.on('login', () => {
-      this.modalType = 'login'
-      this.postModalVisible = true;
-    })
-
-
+    });
 
     this.emitter.on("log", () => {
       this.isLoggedIn = localStorage.getItem("user_id")
+      if(this.$route.path == '/users/' + this.isLoggedIn){
+          this.$router.push('/profile')
+        }
+    })
+
+    this.emitter.on("draftView", () => {
+      this.modalType = "draftView";
+      this.postModalVisible = true;
+    });
+
+    this.emitter.on("editPost", ([text, post_id]) => {
+      this.edit_id = post_id;
+      this.editText = text;
+      this.modalType = "editPost";
+      this.postModalVisible = true;
+    });
+    this.emitter.on("showFollowers", ([followerList]) => {
+      this.modalType = "followerView";
+      this.info = followerList;
+      this.postModalVisible = true;
+    });
+    this.emitter.on("showFollowing", ([followingList]) => {
+      this.modalType = "followingView";
+      this.info = followingList;
+      this.postModalVisible = true;
     });
   },
   unmounted() {
 
-    this.emitter.off("log")
-    this.emitter.off('close')
-    this.emitter.off("newPost")
-    this.emitter.off("editPost")
+    this.emitter.off("close");
+    this.emitter.off("newPost");
+    this.emitter.off("editPost");
+    this.emitter.off("showFollowers");
+    this.emitter.off("showFollowing");
+    this.emitter.off("draftView");
   },
-  components: { PostView }
-}
-
-
+  components: { ModalView },
+};
 </script>

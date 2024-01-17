@@ -1,34 +1,32 @@
 <template>
-    <div class="w-full self-center overflow-y-scroll overflow-hidden">
-        <ul :key=posts>
-            <li v-for="post in posts" class="last-of-type:mb-10 first-of-type:mt-0 flex justify-center">
-                <Post :details="post" :following="following.includes(post.author.user_id)" />
-            </li>
-        </ul>
-    </div>
+  <div
+    class="flex w-full justify-center self-center overflow-hidden overflow-y-scroll rounded-lg"
+  >
+    <ul :key="posts" class="flex w-3/4 flex-col items-center rounded-lg">
+      <li v-for="post in posts" class="w-full">
+        <Post
+          :details="post"
+          :following="following.includes(post.author.user_id)"
+        />
+      </li>
+    </ul>
+  </div>
 </template>
 
 <script>
-import Post from './Post.vue';
+import Post from "./Post.vue";
 export default {
-    data() {
-        return {
-
-        }
+  props: {
+    following: {
+      type: Array,
+      required: false,
+      default: [],
     },
-    props: {
-        following: {
-            type : Array,
-            required: false,
-            default: []
-        },
-        posts: {
-            type : Array,
-            required: true
-        }
+    posts: {
+      type: Array,
+      required: true,
     },
-    components: { Post }
-}
-
-
+  },
+  components: { Post },
+};
 </script>

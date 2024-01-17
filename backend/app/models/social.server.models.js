@@ -124,7 +124,7 @@ const getSingleUser = (user_id, done) => {
 const searchUser = (search, done) => {
     let value = ('%' + search + '%')
     if (search === undefined) {
-        const sql = `SELECT user_id, first_name, last_name, username FROM users`
+        const sql = `SELECT user_id, first_name, last_name, username FROM users LIMIT 10`
         db.all(sql, (err, rows) => {
             if (err) return done(err)
             return done(null, rows);
