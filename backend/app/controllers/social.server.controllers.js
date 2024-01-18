@@ -41,6 +41,8 @@ const unfollower_user = (req, res) => {
 
 const search_user = (req, res) => {
     let search = req.query.q
+    if(search != undefined)
+        search = search.trim()
     socials.searchUser(search, (err, result) => {
         if (err == 400) res.sendStatus(400)
         if (err) return res.sendStatus(500)

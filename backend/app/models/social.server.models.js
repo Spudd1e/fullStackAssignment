@@ -132,7 +132,7 @@ const searchUser = (search, done) => {
     } else {
         const sql = `SELECT user_id, first_name, last_name, username 
             FROM users 
-            WHERE first_name LIKE ?1 OR last_name LIKE ?1 OR username LIKE ?1`
+            WHERE first_name LIKE ?1 OR last_name LIKE ?1 OR username LIKE ?1 LIMIT 10`
         db.all(sql, value, (err, rows) => {
             if (err) return done(err)
             return done(null, rows);
