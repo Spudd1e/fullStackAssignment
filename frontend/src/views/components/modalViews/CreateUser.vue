@@ -53,6 +53,7 @@
             type="password"
             name="password"
             @input="validatePassword"
+            
             placeholder="Password"
             v-model="password"
           />
@@ -127,6 +128,7 @@ export default {
       this.submitted = true;
 
       if (this.validatePassword()) {
+        
         this.validPassword = true;
       } else {
         return;
@@ -163,6 +165,8 @@ export default {
         });
     },
     validatePassword() {
+      if(this.submitted)
+        this.checkMatch()
       const re =
         /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[*@£$%^&*()!])[A-Za-z\d*@£$%^&*()!]{8,10}$/;
       if (re.test(this.password)) {
