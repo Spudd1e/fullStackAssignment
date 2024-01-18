@@ -6,16 +6,7 @@ import Home from "../views/pages/Home.vue";
 import NotFound from "../views/pages/NotFound.vue";
 import SinglePost from "../views/pages/SinglePost.vue";
 import Profile from "../views/pages/Profile.vue";
-import ModalView from "../views/components/Modalview.vue";
 
-const childRoutes = [
-  {
-    path: "/login",
-    component: ModalView,
-    props: { modalType: "login" },
-    beforeEnter: auth.ifAuthenticated,
-  },
-];
 
 const routes = [
   {
