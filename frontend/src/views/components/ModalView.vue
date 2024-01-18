@@ -87,7 +87,7 @@
           v-if="modalType === 'draftView'"
           @click="back"
         >
-          Back
+          Make a new post
         </button>
         <button
           class="w-fit rounded-lg bg-[#EEEEEE] p-2 hover:bg-[#DDDDDD] dark:bg-[#2b2b2f] hover:dark:bg-[#3b3b3f]"

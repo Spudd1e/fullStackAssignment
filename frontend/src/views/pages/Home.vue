@@ -1,6 +1,6 @@
 <template>
   <div class="h-[85vh] w-screen flex-col items-center">
-    <div class="flex h-full w-full flex-col items-center justify-center">
+    <div class="flex h-full w-full flex-col items-center justify-start">
       <div class="flex w-3/4 items-center justify-center dark:text-white">
         <button
           v-if="isLoggedIn"

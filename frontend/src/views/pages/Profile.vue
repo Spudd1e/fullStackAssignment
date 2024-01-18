@@ -61,7 +61,7 @@
       </div>
     </div>
 
-    <p class="p-2 underline decoration-black dark:decoration-white">
+    <p class="p-2 underline text-black dark:text-white transition decoration-black dark:decoration-white">
       <span v-if="personalProfile">Your </span
       ><span v-else-if="this.user.first_name.slice(-1).toLowerCase() != 's'"
         >{{ this.user.first_name }}'s
