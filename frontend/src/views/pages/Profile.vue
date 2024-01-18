@@ -33,7 +33,7 @@
       <div class="flex w-full items-center justify-evenly pb-4 max-sm:text-xs">
         <div class="flex w-[calc(70%/3)] items-center justify-center">
           <p
-            class="flex w-full flex-col items-center justify-evenly rounded-lg bg-[#DDDDDD] p-1 text-black transition dark:bg-violet-600 dark:text-white"
+            class="flex w-full flex-col items-center justify-evenly rounded-lg bg-[#DDDDDD] p-1 text-black transition dark:bg-violet-800 dark:text-white"
           >
             <span class="rounded-lg">{{ this.user.posts.length }}</span>
             Posts
@@ -42,7 +42,7 @@
 
         <div class="flex w-[calc(70%/3)] items-center justify-center">
           <p
-            class="flex w-full cursor-pointer flex-col items-center justify-evenly rounded-lg bg-[#DDDDDD] p-1 text-black transition dark:bg-violet-600 dark:text-white dark:hover:bg-violet-500"
+            class="flex w-full cursor-pointer flex-col items-center justify-evenly rounded-lg bg-[#DDDDDD] p-1 text-black transition hover:bg-[#CCCCCC] dark:bg-violet-800 dark:text-white dark:hover:bg-violet-700"
             @click="showFollowers"
           >
             <span class="rounded-lg">{{ this.user.followers.length }}</span>
@@ -51,7 +51,7 @@
         </div>
         <div class="flex w-[calc(70%/3)] items-center justify-center">
           <p
-            class="flex w-full cursor-pointer flex-col items-center justify-evenly rounded-lg bg-[#DDDDDD] p-1 text-black transition hover:bg-violet-600 dark:bg-violet-600 dark:text-white dark:hover:bg-violet-500"
+            class="flex w-full cursor-pointer flex-col items-center justify-evenly rounded-lg bg-[#DDDDDD] p-1 text-black transition hover:bg-[#CCCCCC] dark:bg-violet-800 dark:text-white dark:hover:bg-violet-700"
             @click="showFollowing"
           >
             <span class="rounded-lg">{{ this.user.following.length }}</span>

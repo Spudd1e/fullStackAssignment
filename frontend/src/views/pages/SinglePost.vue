@@ -25,12 +25,7 @@
           </p>
         </div>
         <div class="flex justify-evenly p-2">
-          <p
-            class="flex flex-col rounded-lg bg-[#DDDDDD] p-2 text-center dark:bg-[#3b3b3f]"
-          >
-            <span>{{ post.post_id }}</span>
-            Post Id
-          </p>
+  
 
           <p
             class="flex h-full flex-col rounded-lg bg-[#DDDDDD] p-2 text-center dark:bg-[#3b3b3f]"
@@ -44,7 +39,7 @@
       <div
         class="w-3/4 rounded-lg bg-[#EEEEEE] p-2 text-left dark:bg-[#2b2b2f]"
       >
-        <h2 class="break-words">{{ post.text }}</h2>
+        <h2 class="break-words text-center">{{ post.text }}</h2>
       </div>
       <EditPostButton
         v-if="post.author.user_id == loggedUser"
@@ -53,7 +48,6 @@
       />
     </div>
   </div>
-  <router-view />
 </template>
 <script>
 import { postService } from "../../services/post.service";

@@ -5,7 +5,7 @@
         <button
           v-if="isLoggedIn"
           @click="newPost"
-          class="m-2 w-full rounded-lg bg-violet-800 p-4 transition hover:bg-violet-900"
+          class="m-2 w-full rounded-lg bg-violet-800 text-white p-4 transition hover:bg-violet-900"
         >
           New Post
         </button>
@@ -18,7 +18,7 @@
         </button>
       </div>
 
-      <Feed class="mt-2" :followingList="followingList" />
+      <Feed :followingList="followingList" />
     </div>
   </div>
 </template>

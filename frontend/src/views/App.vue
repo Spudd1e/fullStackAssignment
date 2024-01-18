@@ -175,12 +175,14 @@ export default {
     },
   },
   mounted() {
+
     const isDark = usePreferredDark;
     if (isDark && localStorage.theme == "dark") {
       localStorage.setItem("theme", "dark");
     }
     this.changeTheme();
 
+    this.emitter.on('userSearch', this.search)
     this.emitter.emit("loadFeed");
     this.emitter.on("login", this.login);
     this.emitter.on("newPost", ([text, id]) => {

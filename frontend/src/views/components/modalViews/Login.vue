@@ -1,6 +1,6 @@
 <template>
   <h1 class="text-bold p-5 text-2xl underline">Login</h1>
-  <div class="text-center">
+  <div class="text-center w-1/4">
     <form @submit.prevent="handleSubmit" class="flex flex-col">
       <div
         id="userInput"
@@ -28,23 +28,22 @@
         class="rounded-lg border-2 border-gray-200 p-1 text-left"
       >
         <h2 for="password" class="p-1 text-lg">Password</h2>
-        <div>
+
+        <div class="flex w-full items-center">
           <input
             type="password"
             name="password"
             id="password"
             v-model="password"
             autocomplete="off"
-            class="border-0 bg-inherit p-2 focus:outline-none focus:ring-0 focus:ring-offset-0"
+            class="border-0 bg-inherit p-2 focus:outline-none w-full focus:ring-0 focus:ring-offset-0"
             @focus="loginFocus('passwordInput')"
             @blur="loginBlur('passwordInput')"
           />
-          <input
-            name="showPass"
-            type="checkbox"
-            @click="togglePassView"
-            class="p-1"
-          />
+          <div class="justify-self-end pr-2" @click="togglePassView">
+            <font-awesome-icon icon="eye" v-if="!passShow" />
+            <font-awesome-icon icon="eye-slash" v-if="passShow" />
+          </div>
         </div>
       </div>
       <div v-if="submitted && !password">Password required</div>
@@ -54,7 +53,7 @@
       <div v-else><br /></div>
 
       <button
-        class="w-3/4 self-center rounded-lg bg-violet-700 p-2 text-white transition hover:bg-violet-600"
+        class="w-3/4 self-center rounded-lg bg-violet-700 dark:bg-violet-800 dark:hover:bg-violet-700 p-2 text-white transition hover:bg-violet-600"
       >
         Login
       </button>
@@ -71,6 +70,7 @@ export default {
     return {
       username: "",
       password: "",
+      passShow: false,
       submitted: false,
       error: null,
     };
@@ -98,8 +98,10 @@ export default {
       const field = document.getElementById("password");
       if (field.type === "password") {
         field.type = "text";
+        this.passShow = true;
       } else {
         field.type = "password";
+        this.passShow = false;
       }
     },
     handleSubmit(e) {

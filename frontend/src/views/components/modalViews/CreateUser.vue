@@ -49,7 +49,7 @@
       <div class="flex flex-col">
         <div class="flex w-full items-center rounded-lg border">
           <input
-            class="password w-[90%] bg-inherit p-1 ring-0 focus:outline-none dark:border-white"
+            class="password w-[100%] bg-inherit p-1 ring-0 focus:outline-none dark:border-white"
             type="password"
             name="password"
             @input="validatePassword"
@@ -57,7 +57,7 @@
             placeholder="Password"
             v-model="password"
           />
-          <div class="w-[10%] justify-self-end" @click="togglePassView">
+          <div class="pr-2 justify-self-end" @click="togglePassView">
             <font-awesome-icon icon="eye" v-if="!passShow" />
             <font-awesome-icon icon="eye-slash" v-if="passShow" />
           </div>
@@ -83,7 +83,7 @@
         <div v-else><br /></div>
       </div>
       <button
-        class="w-full rounded-lg bg-violet-900 p-4 text-center hover:bg-violet-800"
+        class="w-full rounded-lg bg-violet-700 dark:bg-violet-800 dark:hover:bg-violet-700 p-4 text-white text-center hover:bg-violet-600"
       >
         Create
       </button>
