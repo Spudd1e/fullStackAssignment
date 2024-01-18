@@ -137,6 +137,14 @@ export default {
       } else {
         return;
       }
+      if(this.firstName == ""){
+        this.firstName = null;
+        return
+      }
+      if(this.lastName ==""){
+        this.lastName = null
+        return
+      }
 
       userService
         .addNewUser(this.firstName, this.lastName, this.username, this.password)
