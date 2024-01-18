@@ -86,8 +86,8 @@ export default {
         .then((response) => {
           this.emitter.emit("loadFeed");
           this.emitter.emit("updateProfile");
-          if(this.$route.matched[0].path == '/posts/:id'){
-            this.emitter.emit('updatePost')
+          if (this.$route.matched[0].path == "/posts/:id") {
+            this.emitter.emit("updatePost");
           }
           this.$emit("close");
         })

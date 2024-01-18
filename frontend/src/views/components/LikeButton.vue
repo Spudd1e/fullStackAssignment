@@ -16,7 +16,7 @@
         v-else
       />
     </div>
-    <div class="5/12 dark:text-white text-black transition-colors">
+    <div class="5/12 text-black transition-colors dark:text-white">
       <p>{{ likes }}</p>
     </div>
   </div>

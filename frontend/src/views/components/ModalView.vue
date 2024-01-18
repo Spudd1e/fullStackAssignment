@@ -28,7 +28,7 @@
         </div>
 
         <div
-          class="flex h-[80%] w-3/4 self-center justify-center overflow-hidden overflow-y-scroll"
+          class="flex h-[80%] w-3/4 justify-center self-center overflow-hidden overflow-y-scroll"
         >
           <ul
             v-if="this.drafts != null && this.drafts.length > 0"
@@ -174,7 +174,7 @@ export default {
       }
     },
     back() {
-      this.emitter.emit('newPost',[null,null])
+      this.emitter.emit("newPost", [null, null]);
     },
     selectDraft(text, id) {
       this.emitter.emit("newPost", [text, id]);

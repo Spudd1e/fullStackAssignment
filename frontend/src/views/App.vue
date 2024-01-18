@@ -1,10 +1,13 @@
 <template>
-  <div class=":flex-col bg-[#F5F5F5] dark:bg-[#1b1b1f] transition-colors" :key="isLoggedIn">
+  <div
+    class=":flex-col bg-[#F5F5F5] transition-colors dark:bg-[#1b1b1f]"
+    :key="isLoggedIn"
+  >
     <div
       class="sticky top-0 flex h-[15vh] w-full flex-col items-center justify-center"
     >
       <h1
-        class="h-[30%] rounded-md transition-colors text-center text-xl text-black underline decoration-violet-700 decoration-4 dark:text-white max-md:text-lg"
+        class="h-[30%] rounded-md text-center text-xl text-black underline decoration-violet-700 decoration-4 transition-colors dark:text-white max-md:text-lg"
       >
         CHIRRUP!
       </h1>
@@ -78,7 +81,7 @@
         </div>
         <div
           @click="toggleDarkMode"
-          class="cursor-pointer rounded-lg p-4 text-lg transition hover:bg-[#DDDDDD] w-1/12 bg-inherit dark:hover:bg-[#3b3b3f]"
+          class="w-1/12 cursor-pointer rounded-lg bg-inherit p-4 text-lg transition hover:bg-[#DDDDDD] dark:hover:bg-[#3b3b3f]"
         >
           <font-awesome-icon v-if="prefersDark" icon="moon" />
           <font-awesome-icon v-else icon="sun" />
@@ -115,7 +118,7 @@ export default {
       editText: "",
       edit_id: null,
       info: null,
-      prefersDark: localStorage.getItem('theme') == 'dark'
+      prefersDark: localStorage.getItem("theme") == "dark",
     };
   },
   inject: ["emitter"],
@@ -173,7 +176,7 @@ export default {
   },
   mounted() {
     const isDark = usePreferredDark;
-    if (isDark && localStorage.theme == 'dark') {
+    if (isDark && localStorage.theme == "dark") {
       localStorage.setItem("theme", "dark");
     }
     this.changeTheme();

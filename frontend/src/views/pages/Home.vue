@@ -1,6 +1,6 @@
 <template>
   <div class="h-[85vh] w-screen flex-col items-center">
-    <div class="flex h-full w-full flex-col justify-center items-center">
+    <div class="flex h-full w-full flex-col items-center justify-center">
       <div class="flex w-3/4 items-center justify-center dark:text-white">
         <button
           v-if="isLoggedIn"
@@ -11,7 +11,7 @@
         </button>
         <button
           v-if="isLoggedIn"
-          class="m-2 w-fit rounded-lg transition bg-[#EEEEEE] p-1 hover:bg-[#DDDDDD] dark:bg-[#2b2b2f]  hover:dark:bg-[#3b3b3f]"
+          class="m-2 w-fit rounded-lg bg-[#EEEEEE] p-1 transition hover:bg-[#DDDDDD] dark:bg-[#2b2b2f] hover:dark:bg-[#3b3b3f]"
           @click="viewDrafts"
         >
           View Drafts
