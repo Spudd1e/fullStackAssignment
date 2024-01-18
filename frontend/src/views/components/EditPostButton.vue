@@ -1,7 +1,7 @@
 <template>
   <div>
     <button
-      class="w-fit rounded-lg p-2 text-violet-600 transition hover:bg-[#DDDDDD] dark:text-violet-400 hover:dark:bg-[#3b3b3f]"
+      class="w-fit rounded-lg p-2 text-violet-600 transition hover:underline dark:text-violet-400"
       @click="handleEditPost"
     >
       Edit

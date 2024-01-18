@@ -1,11 +1,7 @@
 <template>
   <h1 class="text-bold p-5 text-2xl underline">Login</h1>
   <div class="text-center">
-    <form
-      @submit.prevent="handleSubmit"
-      
-      class="flex flex-col"
-    >
+    <form @submit.prevent="handleSubmit" class="flex flex-col">
       <div
         id="userInput"
         class="rounded-lg border-2 border-gray-200 p-1 text-left"
@@ -18,7 +14,7 @@
           v-model="username"
           id="username"
           autocomplete="off"
-          class="bg-inherit p-1 focus:outline-none focus:ring-0 focus:ring-offset-0 "
+          class="bg-inherit p-1 focus:outline-none focus:ring-0 focus:ring-offset-0"
           @focus="loginFocus('userInput')"
           @blur="loginBlur('userInput')"
         />
@@ -57,7 +53,9 @@
       </div>
       <div v-else><br /></div>
 
-      <button class="w-3/4 self-center rounded-lg bg-violet-700 text-white transition hover:bg-violet-600 p-2">
+      <button
+        class="w-3/4 self-center rounded-lg bg-violet-700 p-2 text-white transition hover:bg-violet-600"
+      >
         Login
       </button>
     </form>
@@ -68,6 +66,7 @@ import { userService } from "../../../services/user.service";
 
 export default {
   inject: ["emitter"],
+  emits: ["close"],
   data() {
     return {
       username: "",
@@ -82,7 +81,7 @@ export default {
     },
     loginFocus(value) {
       let element = document.getElementById(value);
-      console.log(element.className);
+
       element.className = element.className.replace(
         "border-gray-200",
         "border-violet-800",
@@ -114,7 +113,7 @@ export default {
         .then((result) => {
           console.log("Auth Successful");
           this.emitter.emit("log");
-            this.$emit("close");
+          this.$emit("close");
         })
         .catch((error) => {
           this.error = error;

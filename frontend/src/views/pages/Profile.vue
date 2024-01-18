@@ -1,67 +1,75 @@
 <template>
-  <div v-if="this.user.first_name" class="flex h-[90vh] w-full flex-col items-center text-black dark:text-white">
-    <div class="m-6 flex w-3/4 flex-col items-center rounded-lg bg-[#EEEEEE] p-5 dark:bg-[#2b2b2f]">
-      <div class="flex w-full items-center max-md:flex-col justify-center p-2 pb-5">
+  <div
+    v-if="this.user.first_name"
+    class="flex h-[85vh] w-full flex-col items-center text-black dark:text-white"
+  >
+    <div
+      class="flex w-3/4 flex-col items-center rounded-lg bg-[#EEEEEE] p-2 transition dark:bg-[#2b2b2f]"
+    >
+      <div
+        class="flex w-full items-center justify-center p-2 pb-4 pt-0 max-md:flex-col"
+      >
         <div class="flex max-md:flex-col max-md:items-center">
-          <h1 class="text-3xl max-md:text-xl max-md:border-b-2 ">
-            {{ this.user.first_name + " " + this.user.last_name }}<span class="max-md:hidden">|</span>
+          <h1 class="text-3xl max-md:border-b-2 max-md:text-xl">
+            {{ this.user.first_name + " " + this.user.last_name
+            }}<span class="max-md:hidden">|</span>
           </h1>
-          <h1 class="mr-2 text-3xl max-md:text-xl text-violet-400">
+          <h1 class="mr-2 text-3xl text-violet-400 max-md:text-xl">
             @{{ this.user.username }}
           </h1>
         </div>
-        <div v-if="!personalProfile && loggedUser" class="flex max-md:w-1/2 w-1/4 justify-center">
+        <div
+          v-if="!personalProfile && loggedUser"
+          class="flex w-1/4 justify-center max-md:w-1/2"
+        >
           <div class="w-1/2">
-          <FollowButton :isFollowing="following" :author="this.user.user_id" />
+            <FollowButton
+              :isFollowing="following"
+              :author="this.user.user_id"
+            />
           </div>
         </div>
       </div>
-      <div class="w-full items-center justify-evenly flex">
-
+      <div class="flex w-full items-center justify-evenly pb-4 max-sm:text-xs">
         <div class="flex w-[calc(70%/3)] items-center justify-center">
-          <p class=" w-full flex flex-col p-1 justify-evenly items-center dark:bg-[#3b3b3f] rounded-lg">
-            <span class="rounded-lg ">{{
-              this.user.posts.length
-            }}</span>
+          <p
+            class="flex w-full flex-col items-center justify-evenly rounded-lg bg-[#DDDDDD] p-1 transition text-black dark:text-white dark:bg-violet-600"
+          >
+            <span class="rounded-lg">{{ this.user.posts.length }}</span>
             Posts
-
           </p>
         </div>
-
 
         <div class="flex w-[calc(70%/3)] items-center justify-center">
-          <p class="cursor-pointer rounded-lg w-full flex-col p-1 flex items-center justify-evenly transition  dark:bg-[#3b3b3f] dark:hover:bg-[#4b4b4f]"
-            @click="showFollowers">
-            <span class="rounded-lg  ">{{
-              this.user.followers.length
-            }}</span>
+          <p
+            class="flex w-full cursor-pointer flex-col items-center justify-evenly rounded-lg bg-[#DDDDDD] dark:text-white text-black p-1 transition dark:bg-violet-600 dark:hover:bg-violet-500"
+            @click="showFollowers"
+          >
+            <span class="rounded-lg">{{ this.user.followers.length }}</span>
             Followers
-
           </p>
         </div>
-        <div class="flex w-[calc(70%/3)]  items-center justify-center">
-          <p class="cursor-pointer rounded-lg flex-col p-1 w-full flex items-center justify-evenly transition dark:bg-[#3b3b3f] dark:hover:bg-[#4b4b4f]"
-            @click="showFollowing">
-            <span class="rounded-lg ">{{
-              this.user.following.length
-            }}</span>
+        <div class="flex w-[calc(70%/3)] items-center justify-center">
+          <p
+            class="flex w-full cursor-pointer flex-col items-center justify-evenly rounded-lg bg-[#DDDDDD] dark:text-white text-black p-1 transition hover:bg-violet-600 dark:bg-violet-600 dark:hover:bg-violet-500"
+            @click="showFollowing"
+          >
+            <span class="rounded-lg">{{ this.user.following.length }}</span>
             Following
-
           </p>
         </div>
-
       </div>
     </div>
 
     <p class="p-2 underline decoration-black dark:decoration-white">
-      <span v-if="personalProfile">Your </span><span v-else-if="this.user.first_name.slice(-1).toLowerCase() != 's'">{{
-        this.user.first_name }}'s
+      <span v-if="personalProfile">Your </span
+      ><span v-else-if="this.user.first_name.slice(-1).toLowerCase() != 's'"
+        >{{ this.user.first_name }}'s
       </span>
       <span v-else>{{ this.user.first_name }}' </span>Posts
     </p>
-    <PostList  v-show="this.user.posts.length !== 0" :posts="this.user.posts" />
+    <PostList v-show="this.user.posts.length !== 0" :posts="this.user.posts" />
   </div>
-
 </template>
 <script>
 import { userService } from "../../services/user.service";
@@ -90,7 +98,6 @@ export default {
     };
   },
   mounted() {
-    console.log("mounted");
     localStorage.setItem("profileId", this.user_id);
     if (this.loggedUser == this.user_id) {
       this.personalProfile = true;

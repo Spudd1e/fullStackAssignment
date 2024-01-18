@@ -1,31 +1,38 @@
 <template>
   <div
-    class="self-center mb-6 w-full rounded-md bg-[#EEEEEE] p-4 text-black dark:bg-[#2b2b2f] dark:text-white"
+    class="mb-6 w-full self-center rounded-md transition bg-[#EEEEEE] p-4 text-black hover:scale-105 dark:bg-[#2b2b2f] dark:text-white"
   >
     <div class="flex w-full items-center justify-between">
-      <div class="flex w-fit items-center rounded-md ">
-        <div class="mr-2 flex flex-col">
-          <router-link :to="'/users/' + details.author.user_id" class="flex">
-            <h1>
-              {{ details.author.first_name + " " + details.author.last_name }}|
-            </h1>
-            <h2
-              class="mr-2  text-violet-400 hover:underline"
-            >
-              @{{ details.author.username }}
-            </h2>
-          </router-link>
+      <div
+        class="flex w-fit items-center rounded-md bg-[#DDDDDD] transition-colors text-black dark:text-white p-2 dark:bg-[#3b3b3f] max-sm:w-full max-sm:justify-between"
+      >
+        <router-link
+          :to="'/users/' + details.author.user_id"
+          class="flex items-center text-center"
+        >
+          <div class="mr-2 flex  flex-col max-sm:text-sm">
+            <div class="flex items-center justify-center text-center">
+              <h1 class="text-sm">
+                {{ details.author.first_name + " " + details.author.last_name }}
+              </h1>
+              <h1
+                class="text-xs text-violet-600 hover:underline dark:text-violet-400"
+              >
+                @{{ details.author.username }}
+              </h1>
+            </div>
+            <p class="text-sm text-gray-500 max-sm:text-xs">
+              {{ formatDate(new Date(details.timestamp)) }}
+            </p>
+          </div>
+        </router-link>
 
-          <p class="text-sm text-gray-500">
-            {{ formatDate(new Date(details.timestamp)) }}
-          </p>
-        </div>
         <div>
-        <FollowButton
-          v-if="!ownPost && isLoggedIn && !profilePage"
-          :isFollowing="following"
-          :author="details.author.user_id"
-        />
+          <FollowButton
+            v-if="!ownPost && isLoggedIn && !profilePage"
+            :isFollowing="following"
+            :author="details.author.user_id"
+          />
         </div>
       </div>
 
@@ -38,7 +45,9 @@
 
     <router-link :to="'/posts/' + details.post_id" :siFollowing="following">
       <div>
-        <p class="max-sm:text-sm text-lg pt-2">{{ details.text }}</p>
+        <p class="break-words pt-2 text-lg max-sm:text-sm">
+          {{ details.text }}
+        </p>
       </div>
     </router-link>
     <div class="flex w-full">
@@ -115,6 +124,6 @@ export default {
       type: Boolean,
     },
   },
-  components: { LikeButton, FollowButton, EditPostButton},
+  components: { LikeButton, FollowButton, EditPostButton },
 };
 </script>

@@ -1,14 +1,25 @@
 <template>
-  <div class="w-screen h-[90vh] flex-col items-center">
-    <div class="flex h-full w-full flex-col items-center">
-      <button v-if="isLoggedIn" @click="newPost"
-        class="m-2 w-3/4 rounded-lg bg-violet-800 p-2 text-white transition hover:bg-violet-900">
-        New Post
-      </button>
+  <div class="h-[85vh] w-screen flex-col items-center">
+    <div class="flex h-full w-full flex-col justify-center items-center">
+      <div class="flex w-3/4 items-center justify-center dark:text-white">
+        <button
+          v-if="isLoggedIn"
+          @click="newPost"
+          class="m-2 w-full rounded-lg bg-violet-800 p-4 transition hover:bg-violet-900"
+        >
+          New Post
+        </button>
+        <button
+          v-if="isLoggedIn"
+          class="m-2 w-fit rounded-lg transition bg-[#EEEEEE] p-1 hover:bg-[#DDDDDD] dark:bg-[#2b2b2f]  hover:dark:bg-[#3b3b3f]"
+          @click="viewDrafts"
+        >
+          View Drafts
+        </button>
+      </div>
 
       <Feed class="mt-2" :followingList="followingList" />
     </div>
-
   </div>
 </template>
 
@@ -53,6 +64,9 @@ export default {
             console.log(error);
           });
       }
+    },
+    viewDrafts() {
+      this.emitter.emit("draftView");
     },
   },
   components: { Feed, UserSearch, ModalView },

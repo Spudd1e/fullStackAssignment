@@ -1,22 +1,22 @@
 <template>
   <div
-    class="flex w-1/12 max-sm:w-1/4 items-center  justify-evenly rounded-lg bg-[#DDDDDD] p-2 max-sm:p-1 transition-all hover:cursor-pointer hover:bg-[#CCCCCC] dark:bg-[#3b3b3f] hover:dark:bg-[#4b4b4f]"
+    class="flex w-1/12 items-center justify-evenly rounded-lg bg-[#DDDDDD] p-2 transition-colors hover:cursor-pointer hover:bg-[#CCCCCC] dark:bg-[#3b3b3f] hover:dark:bg-[#4b4b4f] max-sm:w-1/4 max-sm:p-1"
     @click="toggleLike"
   >
     <div class="w-5/12 max-sm:w-1/3">
       <font-awesome-icon
         icon="thumbs-up"
         v-if="liked"
-        class="text-violet-400 "
+        class="text-violet-400 transition-colors"
       />
 
       <font-awesome-icon
         icon="thumbs-up"
-        class="text-[#999999] dark:text-white"
+        class="text-[#999999] transition-colors dark:text-white"
         v-else
       />
     </div>
-    <div class="5/12">
+    <div class="5/12 dark:text-white text-black transition-colors">
       <p>{{ likes }}</p>
     </div>
   </div>
@@ -46,7 +46,7 @@ export default {
           })
           .catch((error) => {});
       } else {
-        this.$router.push("/login");
+        this.emitter.emit("login");
       }
     },
     handleUnlike() {
@@ -61,7 +61,7 @@ export default {
             console.log(error);
           });
       } else {
-        this.$router.push("/login");
+        this.emitter.emit("login");
       }
     },
   },

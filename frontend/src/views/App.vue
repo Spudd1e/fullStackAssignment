@@ -1,25 +1,21 @@
 <template>
-  <div
-    class=" :flex-col bg-[#F5F5F5] dark:bg-[#1b1b1f]"
-    :key="isLoggedIn"
-  >
+  <div class=":flex-col bg-[#F5F5F5] dark:bg-[#1b1b1f] transition-colors" :key="isLoggedIn">
     <div
-      class="  w-full p-2  h-[10vh] pt-2"
+      class="sticky top-0 flex h-[15vh] w-full flex-col items-center justify-center"
     >
-    <h1
-          class="text-center w-full dark:text-white text-black rounded-md max-md:text-lg text-xl underline decoration-violet-700 decoration-4"
-        >
-          CHIRRUP!
-        </h1>
+      <h1
+        class="h-[30%] rounded-md transition-colors text-center text-xl text-black underline decoration-violet-700 decoration-4 dark:text-white max-md:text-lg"
+      >
+        CHIRRUP!
+      </h1>
 
       <nav
-        class="sticky top-0 flex h-full w-full  items-center justify-evenly rounded-xl p-2 text-center text-black dark:text-white"
+        class="flex h-[70%] w-3/4 items-center justify-evenly rounded-xl text-center text-black dark:text-white"
       >
-       
-        <div class="w-1/5 pb-5 ">
+        <div class="w-1/6">
           <router-link to="/">
             <div
-              class="w-full rounded-lg  p-2 transition hover:bg-[#DDDDDD] dark:bg-inherit hover:dark:bg-[#3b3b3f]"
+              class="w-full rounded-lg p-2 transition hover:bg-[#DDDDDD] dark:bg-inherit hover:dark:bg-[#3b3b3f]"
             >
               <font-awesome-icon icon="house" />
               <p class="max-sm:hidden">Home</p>
@@ -27,7 +23,7 @@
           </router-link>
         </div>
 
-        <div class="w-1/5 pb-5 ">
+        <div class="w-1/6">
           <div
             class="w-full cursor-pointer rounded-lg p-2 transition hover:bg-[#DDDDDD] dark:bg-inherit hover:dark:bg-[#3b3b3f]"
             @click="search"
@@ -37,33 +33,32 @@
           </div>
         </div>
 
-        <div v-if="isLoggedIn" class="w-1/5 pb-5 ">
+        <div v-if="isLoggedIn" class="w-1/6">
           <div>
             <router-link to="/profile">
               <div
                 class="w-full rounded-lg p-2 transition hover:bg-[#DDDDDD] dark:bg-inherit hover:dark:bg-[#3b3b3f]"
               >
-                <font-awesome-icon icon="user"  />
+                <font-awesome-icon icon="user" />
                 <p class="max-sm:hidden">Profile</p>
               </div>
             </router-link>
           </div>
         </div>
 
-        <div v-if="!isLoggedIn" class="w-1/5 pb-5">
+        <div v-if="!isLoggedIn" class="w-1/6">
           <div>
-
-              <div
-                class="w-full rounded-lg p-2 transition hover:bg-[#DDDDDD] dark:bg-inherit hover:dark:bg-[#3b3b3f]"
-              @click="login">
-                <font-awesome-icon icon="sign-in"/>
-                <p class="max-sm:hidden">Login</p>
-              </div>
-
+            <div
+              class="w-full cursor-pointer rounded-lg p-2 transition hover:bg-[#DDDDDD] dark:bg-inherit hover:dark:bg-[#3b3b3f]"
+              @click="login"
+            >
+              <font-awesome-icon icon="sign-in" />
+              <p class="max-sm:hidden">Login</p>
+            </div>
           </div>
         </div>
 
-        <div v-if="!isLoggedIn" class="w-1/5 pb-5 ">
+        <div v-if="!isLoggedIn" class="w-1/6">
           <div
             @click="handleNewUser"
             class="w-full cursor-pointer rounded-lg p-2 transition hover:bg-[#DDDDDD] dark:bg-inherit hover:dark:bg-[#3b3b3f]"
@@ -73,7 +68,7 @@
           </div>
         </div>
 
-        <div v-else @click="logout" class="w-1/5 pb-5 ">
+        <div v-else @click="logout" class="w-1/6">
           <div
             class="w-full cursor-pointer rounded-lg p-2 transition hover:bg-[#DDDDDD] dark:bg-inherit hover:dark:bg-[#3b3b3f]"
           >
@@ -81,7 +76,13 @@
             <p class="max-sm:hidden">Logout</p>
           </div>
         </div>
-        
+        <div
+          @click="toggleDarkMode"
+          class="cursor-pointer rounded-lg p-4 text-lg transition hover:bg-[#DDDDDD] w-1/12 bg-inherit dark:hover:bg-[#3b3b3f]"
+        >
+          <font-awesome-icon v-if="prefersDark" icon="moon" />
+          <font-awesome-icon v-else icon="sun" />
+        </div>
       </nav>
     </div>
     <div class="animate-slide-fade">
@@ -105,24 +106,20 @@ import { userService } from "../services/user.service";
 import ModalView from "./components/ModalView.vue";
 export default {
   inject: ["emitter"],
+
   data() {
     return {
       isLoggedIn: localStorage.getItem("user_id"),
       postModalVisible: false,
       modalType: null,
       editText: "",
-
       edit_id: null,
       info: null,
+      prefersDark: localStorage.getItem('theme') == 'dark'
     };
   },
   inject: ["emitter"],
   methods: {
-    handleLoginRoute() {
-      if (this.$route.path == "/") {
-        this.$router.push({ name: "homeLogin" });
-      }
-    },
     search() {
       this.postModalVisible = true;
       this.modalType = "userSearch";
@@ -135,33 +132,54 @@ export default {
       (this.modalType = null), (this.editText = ""), (this.edit_id = null);
     },
     logout() {
-      if(this.$route.path == '/profile'){
-        localStorage.setItem('profileId', localStorage.getItem("user_id"))
+      if (this.$route.path == "/profile") {
+        localStorage.setItem("profileId", localStorage.getItem("user_id"));
       }
       userService.logout().then((response) => {
         localStorage.removeItem("postDrafts");
         this.isLoggedIn = localStorage.getItem("user_id");
         this.handleClose();
         this.emitter.emit("loadFeed");
-        if(this.$route.path == '/profile'){
-          this.emitter.emit('updateProfile')
+        if (this.$route.path == "/profile") {
+          this.emitter.emit("updateProfile");
         }
-        
       });
     },
-    login(){
+    login() {
       this.modalType = "login";
       this.postModalVisible = true;
-    }
+    },
+    toggleDarkMode() {
+      if (this.prefersDark) {
+        localStorage.theme = "light";
+      } else {
+        localStorage.theme = "dark";
+      }
+      this.changeTheme();
+    },
+    changeTheme() {
+      if (
+        localStorage.theme === "dark" ||
+        (!("theme" in localStorage) &&
+          window.matchMedia("(prefers-color-scheme: dark)").matches)
+      ) {
+        document.documentElement.classList.add("dark");
+        this.prefersDark = true;
+      } else {
+        document.documentElement.classList.remove("dark");
+        this.prefersDark = false;
+      }
+    },
   },
   mounted() {
     const isDark = usePreferredDark;
-    if (isDark) {
-      document.getElementById("html").className = "dark";
+    if (isDark && localStorage.theme == 'dark') {
+      localStorage.setItem("theme", "dark");
     }
-    
-    this.emitter.emit("loadFeed");
+    this.changeTheme();
 
+    this.emitter.emit("loadFeed");
+    this.emitter.on("login", this.login);
     this.emitter.on("newPost", ([text, id]) => {
       this.modalType = "newPost";
       this.editText = text;
@@ -170,11 +188,11 @@ export default {
     });
 
     this.emitter.on("log", () => {
-      this.isLoggedIn = localStorage.getItem("user_id")
-      if(this.$route.path == '/users/' + this.isLoggedIn){
-          this.$router.push('/profile')
-        }
-    })
+      this.isLoggedIn = localStorage.getItem("user_id");
+      if (this.$route.path == "/users/" + this.isLoggedIn) {
+        this.$router.push("/profile");
+      }
+    });
 
     this.emitter.on("draftView", () => {
       this.modalType = "draftView";
@@ -199,8 +217,8 @@ export default {
     });
   },
   unmounted() {
-
     this.emitter.off("close");
+    this.emitter.off("login");
     this.emitter.off("newPost");
     this.emitter.off("editPost");
     this.emitter.off("showFollowers");

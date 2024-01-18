@@ -1,8 +1,8 @@
 <template>
-  <div class="flex h-3/4 max-md:w-full w-3/4 flex-col items-center">
+  <div class="flex h-3/4 w-3/4 flex-col items-center max-md:w-full">
     <label for="userSearch" class="text-lg">Search User</label>
     <input
-      class="rounded-md bg-inherit w-3/4 p-1 mb-2 ring-1 ring-gray-400 focus:outline-none dark:ring-white"
+      class="mb-2 w-3/4 rounded-md bg-inherit p-1 ring-1 ring-gray-400 focus:outline-none dark:ring-white"
       autocomplete="off"
       type="text"
       name="userSearch"

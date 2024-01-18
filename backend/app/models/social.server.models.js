@@ -96,7 +96,7 @@ const getSingleUser = (user_id, done) => {
                 response.following.push(row)
             }, (err, count) => {
                 if (err) return done(err)
-                const sql = "SELECT post_id FROM posts WHERE author_id = ?"
+                const sql = "SELECT post_id FROM posts WHERE author_id = ? ORDER BY date_published DESC"
                 let promises = []
                 db.each(sql, user_id, (err, row) => {
                     if (err) return done(err)

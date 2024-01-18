@@ -1,5 +1,11 @@
 <template>
-  <PostList :posts="posts" :following="followingList" />
+  <PostList v-if="posts.length > 0" :posts="posts" :following="followingList" />
+  <div v-if="posts.length == 0 && postsRetrieved" class="h-full">
+    <p class="text-black dark:text-white">
+      Follow users to see posts in your feed
+    </p>
+  </div>
+  <div v-if="!postsRetrieved" class="h-full"></div>
 </template>
 
 <script>
@@ -10,7 +16,7 @@ import PostList from "./PostList.vue";
 export default {
   props: ["followingList"],
   inject: ["emitter"],
-  mounted() {
+  beforeMount() {
     this.emitter.on("loadFeed", () => this.getFeed());
   },
   unmounted() {
@@ -24,6 +30,7 @@ export default {
         .getFeed()
         .then((posts) => {
           this.posts = posts;
+          this.postsRetrieved = true;
         })
         .catch((error) => {
           this.error = error;
@@ -33,6 +40,7 @@ export default {
   data() {
     return {
       posts: [],
+      postsRetrieved :false,
       following: [],
     };
   },

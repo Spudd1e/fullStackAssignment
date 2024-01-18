@@ -6,7 +6,7 @@ import emitter from "./services/mitt";
 import "./index.css";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { faSlash, faUser } from "@fortawesome/free-solid-svg-icons";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { faHouse } from "@fortawesome/free-solid-svg-icons";
 import { faSignOut } from "@fortawesome/free-solid-svg-icons";
@@ -15,7 +15,10 @@ import { faUserPlus } from "@fortawesome/free-solid-svg-icons";
 import { faThumbsUp } from "@fortawesome/free-solid-svg-icons";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { faUserMinus } from "@fortawesome/free-solid-svg-icons";
-
+import { faEye } from "@fortawesome/free-solid-svg-icons";
+import { faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { faMoon } from "@fortawesome/free-solid-svg-icons";
+import { faSun } from "@fortawesome/free-solid-svg-icons";
 
 library.add(
   faUser,
@@ -26,8 +29,11 @@ library.add(
   faUserPlus,
   faThumbsUp,
   faSpinner,
-  faUserMinus
-  
+  faUserMinus,
+  faEye,
+  faEyeSlash,
+  faMoon,
+  faSun,
 );
 
 const app = createApp(App);

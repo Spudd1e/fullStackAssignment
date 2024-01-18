@@ -25,6 +25,10 @@ export default {
       postService.deletePost(post_id).then((response) => {
         this.emitter.emit("updateProfile");
         this.emitter.emit("loadFeed");
+        if (this.$route.matched[0].path == "/posts/:id") {
+          this.$router.push("/");
+        }
+
         this.emitter.emit("deleted");
       });
     },

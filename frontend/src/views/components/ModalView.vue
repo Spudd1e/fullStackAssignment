@@ -3,7 +3,7 @@
     class="fixed left-0 top-0 z-10 flex h-screen w-screen items-center justify-center bg-black bg-opacity-50"
   >
     <div
-      class="animate-slide flex h-3/4 w-1/2 max-md:w-3/4 flex-col items-center justify-center rounded-lg bg-white text-center dark:bg-[#1b1b1f] dark:text-white"
+      class="flex h-3/4 w-3/4 animate-slide flex-col items-center justify-center rounded-lg bg-white text-center dark:bg-[#1b1b1f] dark:text-white"
     >
       <NewPost
         v-if="modalType === 'newPost'"
@@ -19,21 +19,24 @@
       />
       <UserSearch v-if="modalType === 'userSearch'" @close="handleClose" />
 
-      <Login v-if="modalType === 'login'" @close="handleClose"/>
+      <Login v-if="modalType === 'login'" @close="handleClose" />
       <CreateUser v-if="modalType === 'newUser'" @close="handleClose" />
       <!-- Show Drafts -->
-      <div
-        v-if="modalType === 'draftView'"
-        class="flex h-3/4 w-full flex-col items-center p-5"
-      >
-        <h1 class="p-2 text-xl">Drafts</h1>
+      <div v-if="modalType === 'draftView'" class="flex h-full w-full flex-col">
+        <div class="h-[10%]">
+          <h1 class="p-5 text-xl max-sm:text-lg">Drafts</h1>
+        </div>
+
         <div
-          class="flex h-full w-3/4 self-center overflow-hidden overflow-y-scroll"
+          class="flex h-[80%] w-3/4 self-center justify-center overflow-hidden overflow-y-scroll"
         >
-          <ul v-if="this.drafts.length > 0" class="w-full">
+          <ul
+            v-if="this.drafts != null && this.drafts.length > 0"
+            class="w-full text-left max-sm:text-sm"
+          >
             <li
               v-for="draft in this.drafts"
-              class="w-ful mb-2 rounded-lg border border-white p-2"
+              class="mb-2 rounded-lg border border-white p-2"
               @click="selectDraft(draft.text, draft.id)"
             >
               <p>{{ draft.text }}</p>
@@ -76,16 +79,18 @@
         </div>
       </div>
       <!--Option Buttons-->
-      <div>
+      <div
+        class="flex h-[10%] w-3/4 items-center justify-evenly max-sm:text-sm"
+      >
         <button
-          class="m-2 w-fit rounded-lg border bg-[#EEEEEE] p-2 hover:bg-[#EEEEEE] dark:bg-[#2b2b2f] hover:dark:bg-[#3b3b3f]"
+          class="w-fit rounded-lg bg-[#EEEEEE] p-2 hover:bg-[#EEEEEE] dark:bg-[#2b2b2f] hover:dark:bg-[#3b3b3f]"
           v-if="modalType === 'draftView'"
-          @click=""
+          @click="back"
         >
           Back
         </button>
         <button
-          class="m-2 w-fit rounded-lg bg-[#EEEEEE] p-2 hover:bg-[#DDDDDD] dark:bg-[#2b2b2f] hover:dark:bg-[#3b3b3f]"
+          class="w-fit rounded-lg bg-[#EEEEEE] p-2 hover:bg-[#DDDDDD] dark:bg-[#2b2b2f] hover:dark:bg-[#3b3b3f]"
           @click="handleClose"
         >
           Close
@@ -142,7 +147,7 @@ export default {
   },
   data() {
     return {
-      drafts: localStorage.getItem("postDrafts"),
+      drafts: JSON.parse(localStorage.getItem("postDrafts")),
       post_id: this.$props.id,
       showMessage: false,
       deleted: false,
@@ -155,7 +160,6 @@ export default {
   mounted() {
     this.emitter.on("viewDrafts", () => {
       this.drafts = JSON.parse(localStorage.getItem("postDrafts"));
-      console.log(this.drafts);
       this.emitter.emit("draftView");
     });
   },
@@ -169,7 +173,9 @@ export default {
         this.$router.push("/");
       }
     },
-    back() {},
+    back() {
+      this.emitter.emit('newPost',[null,null])
+    },
     selectDraft(text, id) {
       this.emitter.emit("newPost", [text, id]);
     },
