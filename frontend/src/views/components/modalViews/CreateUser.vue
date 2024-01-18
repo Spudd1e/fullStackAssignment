@@ -1,8 +1,10 @@
 <template>
+  <div class="h-[10%]">
   <h1 class="text-bold text-center text-xl underline max-sm:text-lg">
     Create New User
   </h1>
-  <div class="flex h-[80%] w-full flex-col items-center justify-center">
+  </div>
+  <div class="flex h-[80%] max-md:text-sm w-full flex-col items-center justify-center">
     <form
       @submit.prevent="handleSubmit"
       autocomplete="off"
@@ -35,6 +37,7 @@
           class="rounded-lg border bg-inherit p-1 ring-0 focus:outline-none dark:border-white"
           type="text"
           name="username"
+          @input="error = null"
           placeholder="Username"
           v-model="username"
         />
@@ -49,6 +52,7 @@
             class="password w-[90%] bg-inherit p-1 ring-0 focus:outline-none dark:border-white"
             type="password"
             name="password"
+            @input="validatePassword"
             placeholder="Password"
             v-model="password"
           />
@@ -57,7 +61,13 @@
             <font-awesome-icon icon="eye-slash" v-if="passShow" />
           </div>
         </div>
-        <div v-if="!validPassword && submitted">Password Invalid</div>
+        <div class="text-sm max-sm:text-xs" v-if="!validPassword && submitted">
+          <p>Password must have atleast:</p>
+          <p>- 8 characters</p>
+          <p>- 1 upper AND lower case character</p>
+          <p>- 1 number</p>
+          <p>- 1 symbol of *@£$%^&*()!</p>
+        </div>
         <div v-else><br /></div>
 
         <input
@@ -66,6 +76,7 @@
           name="confirm"
           placeholder="Confirm Password"
           v-model="confirmPass"
+          @input="checkMatch"
         />
         <div v-if="!passConfirm && submitted">Password does not match</div>
         <div v-else><br /></div>
@@ -129,13 +140,10 @@ export default {
 
       userService
         .addNewUser(this.firstName, this.lastName, this.username, this.password)
-        .then((response) => {
-          alert("User " + response.user_id + " has been created");
-        })
         .then(() => {
           userService.login(this.username, this.password).then((result) => {
             console.log("Auth Successful");
-            this.$router.push("/");
+            this.$router.push("/profile");
             this.emitter.emit("log", true);
             this.$emit("close");
           });
@@ -148,7 +156,7 @@ export default {
     },
     validatePassword() {
       const re =
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,10}$/;
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[*@£$%^&*()!])[A-Za-z\d*@£$%^&*()!]{8,10}$/;
       if (re.test(this.password)) {
         this.validPassword = true;
         return true;

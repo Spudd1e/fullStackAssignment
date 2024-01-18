@@ -16,7 +16,7 @@ import PostList from "./PostList.vue";
 export default {
   props: ["followingList"],
   inject: ["emitter"],
-  beforeMount() {
+  mounted() {
     this.emitter.on("loadFeed", () => this.getFeed());
   },
   unmounted() {
