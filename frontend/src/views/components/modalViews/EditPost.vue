@@ -18,7 +18,7 @@
         Update
       </button>
       <button
-        class="m-2 w-fit rounded-md bg-[#EEEEEE] p-2 hover:bg-[#DDDDDD] dark:bg-[#3b3b3f] hover:dark:bg-[#2b2b2f]"
+        class="m-2 w-fit rounded-md bg-[#EEEEEE] p-2 dark:text-white hover:bg-[#DDDDDD] dark:bg-[#3b3b3f] hover:dark:bg-[#2b2b2f]"
         @click="this.showMessage = true"
       >
         Delete
@@ -32,7 +32,7 @@
       <div v-if="!deleted" class="flex flex-col items-center">
         <p class="p-2">Are you sure?</p>
         <DeletePostButton
-          class="w-fit rounded-md bg-[#3b3b3f] p-2 hover:bg-[#2b2b2f]"
+          
           :post_id="id"
         />
       </div>

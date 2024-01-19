@@ -41,7 +41,7 @@
         <div class="w-full pt-2">
           <button
             @click="handlePost"
-            class="w-3/4 rounded-lg bg-[#EEEEEE] p-2 hover:bg-[#DDDDDD] dark:bg-violet-800 hover:dark:bg-[#3b3b3f]"
+            class="w-3/4 rounded-lg text-white p-2  bg-violet-800 hover:bg-violet-700"
           >
             Post
           </button>

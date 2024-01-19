@@ -81,10 +81,10 @@
         </div>
         <div
           @click="toggleDarkMode"
-          class="w-1/12 cursor-pointer rounded-lg bg-inherit p-4 text-lg transition hover:bg-[#DDDDDD] dark:hover:bg-[#3b3b3f]"
+          class=" flex items-center justify-center cursor-pointer rounded-lg dark:text-violet-800 max-sm:text-lg bg-inherit text-4xl transition"
         >
-          <font-awesome-icon v-if="prefersDark" icon="moon" />
-          <font-awesome-icon v-else icon="sun" />
+          <font-awesome-icon v-if="prefersDark" icon="toggle-on" />
+          <font-awesome-icon v-else icon="toggle-off" />
         </div>
       </nav>
     </div>

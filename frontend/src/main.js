@@ -17,8 +17,8 @@ import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { faUserMinus } from "@fortawesome/free-solid-svg-icons";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 import { faEyeSlash } from "@fortawesome/free-solid-svg-icons";
-import { faMoon } from "@fortawesome/free-solid-svg-icons";
-import { faSun } from "@fortawesome/free-solid-svg-icons";
+import { faToggleOff } from "@fortawesome/free-solid-svg-icons";
+import { faToggleOn } from "@fortawesome/free-solid-svg-icons";
 
 library.add(
   faUser,
@@ -32,8 +32,8 @@ library.add(
   faUserMinus,
   faEye,
   faEyeSlash,
-  faMoon,
-  faSun,
+  faToggleOff,
+  faToggleOn
 );
 
 const app = createApp(App);

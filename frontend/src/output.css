@@ -1072,6 +1072,11 @@ video {
   font-size: 0.5rem;
 }
 
+.text-4xl {
+  font-size: 2.25rem;
+  line-height: 2.5rem;
+}
+
 .font-bold {
   font-weight: 700;
 }
@@ -1224,6 +1229,11 @@ video {
   background-color: rgb(76 29 149 / var(--tw-bg-opacity));
 }
 
+.hover\:bg-violet-500:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(139 92 246 / var(--tw-bg-opacity));
+}
+
 .hover\:underline:hover {
   text-decoration-line: underline;
 }
@@ -1305,6 +1315,16 @@ video {
   color: rgb(209 213 219 / var(--tw-text-opacity));
 }
 
+:is(.dark .dark\:text-violet-800) {
+  --tw-text-opacity: 1;
+  color: rgb(91 33 182 / var(--tw-text-opacity));
+}
+
+:is(.dark .dark\:text-violet-600) {
+  --tw-text-opacity: 1;
+  color: rgb(124 58 237 / var(--tw-text-opacity));
+}
+
 :is(.dark .dark\:decoration-white) {
   text-decoration-color: #fff;
 }
@@ -1347,6 +1367,11 @@ video {
 :is(.dark .dark\:hover\:bg-violet-700:hover) {
   --tw-bg-opacity: 1;
   background-color: rgb(109 40 217 / var(--tw-bg-opacity));
+}
+
+:is(.dark .dark\:hover\:bg-\[\#2b2b2f\]:hover) {
+  --tw-bg-opacity: 1;
+  background-color: rgb(43 43 47 / var(--tw-bg-opacity));
 }
 
 :is(.dark .dark\:focus\:border-gray-200:focus) {
@@ -1443,5 +1468,10 @@ video {
   .max-sm\:text-xs {
     font-size: 0.75rem;
     line-height: 1rem;
+  }
+
+  .max-sm\:text-base {
+    font-size: 1rem;
+    line-height: 1.5rem;
   }
 }

@@ -13,7 +13,6 @@ const get_single_user = (req, res) => {
 
 const follow_user = (req, res) => {
     let user_id = parseInt(req.params.user_id);
-    console.log(user_id)
     getIdFromToken(req.get('X-Authorization'), (err, follower_id) => {
         if (err) return res.sendStatus(401);
         socials.followUser(user_id, follower_id, (err) => {

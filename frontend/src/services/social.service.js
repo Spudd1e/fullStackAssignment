@@ -109,7 +109,7 @@ const likePost = (post_id) => {
       }
     })
     .catch((error) => {
-      console.log(error, "HEY");
+      console.log("Err", error);
     });
 };
 const unlikePost = (post_id) => {

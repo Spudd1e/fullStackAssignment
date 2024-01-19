@@ -41,8 +41,8 @@
             @blur="loginBlur('passwordInput')"
           />
           <div class="justify-self-end pr-2" @click="togglePassView">
-            <font-awesome-icon icon="eye" v-if="!passShow" />
-            <font-awesome-icon icon="eye-slash" v-if="passShow" />
+            <font-awesome-icon icon="eye" v-if="passShow" />
+          <font-awesome-icon icon="eye-slash" v-else />
           </div>
         </div>
       </div>

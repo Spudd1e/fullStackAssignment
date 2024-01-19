@@ -5,7 +5,7 @@
         <button
           v-if="isLoggedIn"
           @click="newPost"
-          class="m-2 w-full rounded-lg bg-violet-800 text-white p-4 transition hover:bg-violet-900"
+          class="m-2 w-full rounded-lg bg-violet-800 text-white p-4 transition hover:bg-violet-700"
         >
           New Post
         </button>

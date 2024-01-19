@@ -1,5 +1,5 @@
 <template>
-  <div class="h-[10%]">
+  <div class="h-[10%] flex items-center">
   <h1 class="text-bold text-center text-xl underline max-sm:text-lg">
     Create New User
   </h1>
@@ -59,7 +59,7 @@
           />
           <div class="pr-2 justify-self-end" @click="togglePassView">
             <font-awesome-icon icon="eye" v-if="!passShow" />
-            <font-awesome-icon icon="eye-slash" v-if="passShow" />
+            <font-awesome-icon icon="eye-slash" v-else />
           </div>
         </div>
         <div class="text-sm max-sm:text-xs" v-if="!validPassword && submitted">
@@ -168,7 +168,7 @@ export default {
       if(this.submitted)
         this.checkMatch()
       const re =
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[*@£$%^&*()!])[A-Za-z\d*@£$%^&*()!]{8,10}$/;
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[*@£$%^&*()!])[A-Za-z\d*@£$%^&*()!]{8,}$/;
       if (re.test(this.password)) {
         this.validPassword = true;
         return true;
