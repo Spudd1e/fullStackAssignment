@@ -1,6 +1,6 @@
 <template>
   <h1 class="text-bold p-5 text-2xl underline">Login</h1>
-  <div class="w-1/4 text-center">
+  <div class="w-1/3 max-md:w-1/2 text-center">
     <form @submit.prevent="handleSubmit" class="flex flex-col">
       <div
         id="userInput"
@@ -34,7 +34,7 @@
             type="password"
             name="password"
             id="password"
-            maxlength="20"
+            maxlength="32"
             v-model="password"
             autocomplete="off"
             class="w-full border-0 bg-inherit p-2 focus:outline-none focus:ring-0 focus:ring-offset-0"

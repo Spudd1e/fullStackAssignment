@@ -54,7 +54,7 @@
             class="password w-[100%] bg-inherit p-1 ring-0 focus:outline-none dark:border-white"
             type="password"
             name="password"
-            maxlength="20"
+            maxlength="32"
             @input="validatePassword"
             placeholder="Password"
             v-model="password"
@@ -77,7 +77,7 @@
           class="password rounded-lg border bg-inherit p-1 ring-0 focus:outline-none dark:border-white"
           type="password"
           name="confirm"
-          maxlength="20"
+          maxlength="32"
           placeholder="Confirm Password"
           v-model="confirmPass"
           @input="checkMatch"
@@ -169,7 +169,7 @@ export default {
     validatePassword() {
       if (this.submitted) this.checkMatch();
       const re =
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#@£$%^&*()=!])[A-Za-z\d#@£$%^&*()=!]{8,}$/;
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#@£$%^&*()=!])[A-Za-z\d#@£$%^&*()=!]{8,32}$/;
       if (re.test(this.password)) {
         this.validPassword = true;
         return true;
