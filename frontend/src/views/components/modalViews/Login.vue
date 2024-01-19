@@ -1,6 +1,6 @@
 <template>
   <h1 class="text-bold p-5 text-2xl underline">Login</h1>
-  <div class="text-center w-1/4">
+  <div class="w-1/4 text-center">
     <form @submit.prevent="handleSubmit" class="flex flex-col">
       <div
         id="userInput"
@@ -34,15 +34,16 @@
             type="password"
             name="password"
             id="password"
+            maxlength="20"
             v-model="password"
             autocomplete="off"
-            class="border-0 bg-inherit p-2 focus:outline-none w-full focus:ring-0 focus:ring-offset-0"
+            class="w-full border-0 bg-inherit p-2 focus:outline-none focus:ring-0 focus:ring-offset-0"
             @focus="loginFocus('passwordInput')"
             @blur="loginBlur('passwordInput')"
           />
           <div class="justify-self-end pr-2" @click="togglePassView">
             <font-awesome-icon icon="eye" v-if="passShow" />
-          <font-awesome-icon icon="eye-slash" v-else />
+            <font-awesome-icon icon="eye-slash" v-else />
           </div>
         </div>
       </div>
@@ -53,7 +54,7 @@
       <div v-else><br /></div>
 
       <button
-        class="w-3/4 self-center rounded-lg bg-violet-700 dark:bg-violet-800 dark:hover:bg-violet-700 p-2 text-white transition hover:bg-violet-600"
+        class="w-3/4 self-center rounded-lg bg-violet-700 p-2 text-white transition hover:bg-violet-600 dark:bg-violet-800 dark:hover:bg-violet-700"
       >
         Login
       </button>

@@ -7,7 +7,6 @@ import NotFound from "../views/pages/NotFound.vue";
 import SinglePost from "../views/pages/SinglePost.vue";
 import Profile from "../views/pages/Profile.vue";
 
-
 const routes = [
   {
     path: "/",

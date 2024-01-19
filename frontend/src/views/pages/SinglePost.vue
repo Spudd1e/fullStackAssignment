@@ -25,8 +25,6 @@
           </p>
         </div>
         <div class="flex justify-evenly p-2">
-  
-
           <p
             class="flex h-full flex-col rounded-lg bg-[#DDDDDD] p-2 text-center dark:bg-[#3b3b3f]"
           >

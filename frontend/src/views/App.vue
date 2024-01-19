@@ -81,7 +81,7 @@
         </div>
         <div
           @click="toggleDarkMode"
-          class=" flex items-center justify-center cursor-pointer rounded-lg dark:text-violet-800 max-sm:text-lg bg-inherit text-4xl transition"
+          class="flex cursor-pointer items-center justify-center rounded-lg bg-inherit text-4xl transition dark:text-violet-800 max-sm:text-lg"
         >
           <font-awesome-icon v-if="prefersDark" icon="toggle-on" />
           <font-awesome-icon v-else icon="toggle-off" />
@@ -142,9 +142,9 @@ export default {
         localStorage.removeItem("postDrafts");
         this.isLoggedIn = localStorage.getItem("user_id");
         this.handleClose();
-        this.emitter.emit("loadFeed");
+
         if (this.$route.path == "/profile") {
-          this.emitter.emit("updateProfile");
+          this.$router.push("/users/" + localStorage.profileId);
         }
       });
     },
@@ -175,14 +175,13 @@ export default {
     },
   },
   mounted() {
-
     const isDark = usePreferredDark;
     if (isDark && localStorage.theme == "dark") {
       localStorage.setItem("theme", "dark");
     }
     this.changeTheme();
 
-    this.emitter.on('userSearch', this.search)
+    this.emitter.on("userSearch", this.search);
     this.emitter.emit("loadFeed");
     this.emitter.on("login", this.login);
     this.emitter.on("newPost", ([text, id]) => {
@@ -226,6 +225,7 @@ export default {
     this.emitter.off("login");
     this.emitter.off("newPost");
     this.emitter.off("editPost");
+    this.emitter.off("log");
     this.emitter.off("showFollowers");
     this.emitter.off("showFollowing");
     this.emitter.off("draftView");

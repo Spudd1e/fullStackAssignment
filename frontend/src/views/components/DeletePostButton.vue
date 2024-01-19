@@ -1,5 +1,7 @@
 <template>
-  <div class="w-fit rounded-md bg-[#DDDDDD] dark:bg-[#3b3b3f] hover:bg-[#CCCCCC] cursor-pointer dark:text-white p-2 dark:hover:bg-[#2b2b2f]">
+  <div
+    class="w-fit cursor-pointer rounded-md bg-[#DDDDDD] p-2 hover:bg-[#CCCCCC] dark:bg-[#3b3b3f] dark:text-white dark:hover:bg-[#2b2b2f]"
+  >
     <button @click="deletePost">Delete</button>
   </div>
 </template>

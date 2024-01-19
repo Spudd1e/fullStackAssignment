@@ -1,10 +1,12 @@
 <template>
-  <div class="h-[10%] flex items-center">
-  <h1 class="text-bold text-center text-xl underline max-sm:text-lg">
-    Create New User
-  </h1>
+  <div class="flex h-[10%] items-center">
+    <h1 class="text-bold text-center text-xl underline max-sm:text-lg">
+      Create New User
+    </h1>
   </div>
-  <div class="flex h-[80%] max-md:text-sm w-full flex-col items-center justify-center">
+  <div
+    class="flex h-[80%] w-full flex-col items-center justify-center max-md:text-sm"
+  >
     <form
       @submit.prevent="handleSubmit"
       autocomplete="off"
@@ -52,13 +54,13 @@
             class="password w-[100%] bg-inherit p-1 ring-0 focus:outline-none dark:border-white"
             type="password"
             name="password"
+            maxlength="20"
             @input="validatePassword"
-            
             placeholder="Password"
             v-model="password"
           />
-          <div class="pr-2 justify-self-end" @click="togglePassView">
-            <font-awesome-icon icon="eye" v-if="!passShow" />
+          <div class="justify-self-end pr-2" @click="togglePassView">
+            <font-awesome-icon icon="eye" v-if="passShow" />
             <font-awesome-icon icon="eye-slash" v-else />
           </div>
         </div>
@@ -67,7 +69,7 @@
           <p>- 8 characters</p>
           <p>- 1 upper AND lower case character</p>
           <p>- 1 number</p>
-          <p>- 1 symbol of *@£$%^&*()!</p>
+          <p>- 1 symbol of #@£$%^&*()=!</p>
         </div>
         <div v-else><br /></div>
 
@@ -75,6 +77,7 @@
           class="password rounded-lg border bg-inherit p-1 ring-0 focus:outline-none dark:border-white"
           type="password"
           name="confirm"
+          maxlength="20"
           placeholder="Confirm Password"
           v-model="confirmPass"
           @input="checkMatch"
@@ -83,7 +86,7 @@
         <div v-else><br /></div>
       </div>
       <button
-        class="w-full rounded-lg bg-violet-700 dark:bg-violet-800 dark:hover:bg-violet-700 p-4 text-white text-center hover:bg-violet-600"
+        class="w-full rounded-lg bg-violet-700 p-4 text-center text-white hover:bg-violet-600 dark:bg-violet-800 dark:hover:bg-violet-700"
       >
         Create
       </button>
@@ -128,7 +131,6 @@ export default {
       this.submitted = true;
 
       if (this.validatePassword()) {
-        
         this.validPassword = true;
       } else {
         return;
@@ -139,13 +141,13 @@ export default {
       } else {
         return;
       }
-      if(this.firstName == ""){
+      if (this.firstName == "") {
         this.firstName = null;
-        return
+        return;
       }
-      if(this.lastName ==""){
-        this.lastName = null
-        return
+      if (this.lastName == "") {
+        this.lastName = null;
+        return;
       }
 
       userService
@@ -165,10 +167,9 @@ export default {
         });
     },
     validatePassword() {
-      if(this.submitted)
-        this.checkMatch()
+      if (this.submitted) this.checkMatch();
       const re =
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[*@£$%^&*()!])[A-Za-z\d*@£$%^&*()!]{8,}$/;
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#@£$%^&*()=!])[A-Za-z\d#@£$%^&*()=!]{8,}$/;
       if (re.test(this.password)) {
         this.validPassword = true;
         return true;

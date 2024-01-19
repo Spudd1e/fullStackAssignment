@@ -6,10 +6,10 @@
       <textarea
         class="h-[calc(75%-1.5rem)] w-full resize-none rounded-xl bg-[#EEEEEE] p-2 focus:border focus:outline-none dark:bg-[#2b2b2f] dark:focus:border-gray-200"
         v-model="postText"
-        maxlength="500"
+        maxlength="400"
         @input="charCount = postText.length"
       ></textarea>
-      <div v-if="charCount >= 500">Character limit Reached</div>
+      <div v-if="charCount >= 400">Character limit Reached</div>
       <div v-else><br /></div>
       <button
         class="m-2 w-fit rounded-md bg-[#EEEEEE] p-2 hover:bg-[#DDDDDD] dark:bg-[#3b3b3f] hover:dark:bg-[#2b2b2f]"
@@ -18,7 +18,7 @@
         Update
       </button>
       <button
-        class="m-2 w-fit rounded-md bg-[#EEEEEE] p-2 dark:text-white hover:bg-[#DDDDDD] dark:bg-[#3b3b3f] hover:dark:bg-[#2b2b2f]"
+        class="m-2 w-fit rounded-md bg-[#EEEEEE] p-2 hover:bg-[#DDDDDD] dark:bg-[#3b3b3f] dark:text-white hover:dark:bg-[#2b2b2f]"
         @click="this.showMessage = true"
       >
         Delete
@@ -31,10 +31,7 @@
     >
       <div v-if="!deleted" class="flex flex-col items-center">
         <p class="p-2">Are you sure?</p>
-        <DeletePostButton
-          
-          :post_id="id"
-        />
+        <DeletePostButton :post_id="id" />
       </div>
       <div v-if="deleted" class="rounded-md bg-green-500 p-4">
         <h1>Post Deleted</h1>

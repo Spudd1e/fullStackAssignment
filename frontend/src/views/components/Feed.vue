@@ -4,12 +4,16 @@
     v-if="posts.length == 0 && postsRetrieved"
     class="flex h-fit w-full items-center justify-center rounded-lg p-2 text-black dark:text-white"
   >
-    <div class="flex w-3/4 items-center bg-[#DDDDDD] dark:bg-[#2b2b2f] rounded-lg p-2">
-      <h2  v-if="followingList.length == 0" class="w-1/2 text-lg text-center">Follow users to see posts in your feed</h2>
-      <h2 v-else class="w-1/2 text-lg text-center">Nobody has posted yet</h2>
+    <div
+      class="flex w-3/4 items-center rounded-lg bg-[#DDDDDD] p-2 dark:bg-[#2b2b2f]"
+    >
+      <h2 v-if="followingList.length == 0" class="w-1/2 text-center text-lg">
+        Follow users to see posts in your feed
+      </h2>
+      <h2 v-else class="w-1/2 text-center text-lg">Nobody has posted yet</h2>
       <div class="w-1/2 text-center">
         <div
-          class="w-full cursor-pointer rounded-lg p-2 transition hover:bg-[#CCCCCC] dark:hover:bg-[#3b3b3f] dark:bg-inherit hover:dark:bg-[#3b3b3f]"
+          class="w-full cursor-pointer rounded-lg p-2 transition hover:bg-[#CCCCCC] dark:bg-inherit dark:hover:bg-[#3b3b3f] hover:dark:bg-[#3b3b3f]"
           @click="search"
         >
           <font-awesome-icon icon="search" />

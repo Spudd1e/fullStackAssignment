@@ -33,7 +33,7 @@ library.add(
   faEye,
   faEyeSlash,
   faToggleOff,
-  faToggleOn
+  faToggleOn,
 );
 
 const app = createApp(App);

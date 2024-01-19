@@ -13,9 +13,9 @@ const login = (username, password) => {
       if (response.status === 200) {
         return response.json();
       }
-      
-      if(response.status === 400){
-        throw "Incorrect username/password"
+
+      if (response.status === 400) {
+        throw "Incorrect username/password";
       }
       if (response.status === 500) {
         throw "Server Error";

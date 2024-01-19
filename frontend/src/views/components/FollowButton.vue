@@ -2,14 +2,14 @@
   <div
     v-if="isFollowing"
     @click="unfollowUser"
-    class="flex w-full items-center transition justify-center rounded-lg bg-violet-500 p-2 text-center text-lg text-white hover:cursor-pointer hover:bg-violet-700 dark:bg-violet-800 dark:hover:bg-violet-700"
+    class="flex w-full items-center justify-center rounded-lg bg-violet-500 p-2 text-center text-lg text-white transition hover:cursor-pointer hover:bg-violet-700 dark:bg-violet-800 dark:hover:bg-violet-700"
   >
     <font-awesome-icon icon="user-minus" />
   </div>
   <div
     v-if="!isFollowing"
     @click="followUser"
-    class="flex w-full items-center transition justify-center rounded-lg p-2 bg-violet-500 text-center text-lg text-white hover:cursor-pointer hover:bg-violet-700 dark:bg-violet-800"
+    class="flex w-full items-center justify-center rounded-lg bg-violet-500 p-2 text-center text-lg text-white transition hover:cursor-pointer hover:bg-violet-700 dark:bg-violet-800"
   >
     <font-awesome-icon icon="user-plus" />
   </div>

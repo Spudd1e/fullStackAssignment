@@ -61,7 +61,9 @@
       </div>
     </div>
 
-    <p class="p-2 underline text-black dark:text-white transition decoration-black dark:decoration-white">
+    <p
+      class="p-2 text-black underline decoration-black transition dark:text-white dark:decoration-white"
+    >
       <span v-if="personalProfile">Your </span
       ><span v-else-if="this.user.first_name.slice(-1).toLowerCase() != 's'"
         >{{ this.user.first_name }}'s
@@ -98,6 +100,7 @@ export default {
     };
   },
   mounted() {
+    this.personalProfile = false;
     localStorage.setItem("profileId", this.user_id);
     if (this.loggedUser == this.user_id) {
       this.personalProfile = true;
@@ -124,11 +127,22 @@ export default {
 
       this.getUser(this.user_id);
     });
+
     this.getUser(this.user_id);
   },
   watch: {
-    $route: function () {
-      this.emitter.emit("updateProfile");
+    $route: function (to, from) {
+      if (
+        !(
+          from.path == "/profile" &&
+          to.path == "/users/" + localStorage.profileId
+        ) &&
+        !(
+          to.path == "/profile" && from.path == "/users/" + localStorage.user_id
+        )
+      ) {
+        this.emitter.emit("updateProfile");
+      }
     },
   },
   unmounted() {
