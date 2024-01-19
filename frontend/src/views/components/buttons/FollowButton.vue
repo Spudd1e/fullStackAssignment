@@ -9,13 +9,13 @@
   <div
     v-if="!isFollowing"
     @click="followUser"
-    class="flex w-full items-center justify-center rounded-lg bg-violet-500 p-2 text-center text-lg text-white transition hover:cursor-pointer hover:bg-violet-700 dark:bg-violet-800"
+    class="flex w-full items-center justify-center rounded-lg bg-violet-500 p-2 text-center text-lg text-white transition hover:cursor-pointer hover:bg-violet-700 dark:bg-violet-800 dark:hover:bg-violet-700"
   >
     <font-awesome-icon icon="user-plus" />
   </div>
 </template>
 <script>
-import { socialService } from "../../services/social.service";
+import { socialService } from "../../../services/social.service";
 
 export default {
   props: ["isFollowing", "author"],

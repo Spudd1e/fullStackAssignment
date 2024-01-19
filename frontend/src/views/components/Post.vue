@@ -63,9 +63,9 @@
 </template>
 
 <script>
-import EditPostButton from "./EditPostButton.vue";
-import FollowButton from "./FollowButton.vue";
-import LikeButton from "./LikeButton.vue";
+import EditPostButton from "./buttons/EditPostButton.vue";
+import FollowButton from "./buttons/FollowButton.vue";
+import LikeButton from "./buttons/LikeButton.vue";
 
 export default {
   inject: ["emitter"],

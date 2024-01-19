@@ -1,6 +1,6 @@
 <template>
   <h1 class="text-bold p-5 text-2xl underline">Login</h1>
-  <div class="w-1/3 max-md:w-1/2 text-center">
+  <div class="w-1/3 text-center max-md:w-1/2">
     <form @submit.prevent="handleSubmit" class="flex flex-col">
       <div
         id="userInput"

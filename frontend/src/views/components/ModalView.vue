@@ -112,7 +112,6 @@ import Post from "./Post.vue";
 
 export default {
   inject: ["emitter"],
-  //props: ["modalType", "id", "text"],
   props: {
     info: {
       type: Array,

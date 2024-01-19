@@ -75,7 +75,7 @@
 </template>
 <script>
 import { userService } from "../../services/user.service";
-import FollowButton from "../components/FollowButton.vue";
+import FollowButton from "../components/buttons/FollowButton.vue";
 import Post from "../components/Post.vue";
 import PostList from "../components/PostList.vue";
 export default {

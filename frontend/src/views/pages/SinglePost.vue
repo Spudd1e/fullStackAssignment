@@ -49,7 +49,7 @@
 </template>
 <script>
 import { postService } from "../../services/post.service";
-import EditPostButton from "../components/EditPostButton.vue";
+import EditPostButton from "../components/buttons/EditPostButton.vue";
 
 export default {
   inject: ["emitter"],

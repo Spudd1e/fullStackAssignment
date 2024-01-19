@@ -42,7 +42,7 @@
 
 <script>
 import { postService } from "../../../services/post.service";
-import DeletePostButton from "../DeletePostButton.vue";
+import DeletePostButton from "../buttons/DeletePostButton.vue";
 
 export default {
   inject: ["emitter"],

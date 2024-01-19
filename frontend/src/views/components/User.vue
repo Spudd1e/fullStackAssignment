@@ -15,8 +15,6 @@
   </div>
 </template>
 <script>
-import FollowButton from "./FollowButton.vue";
-
 export default {
   data() {
     return {
@@ -24,6 +22,5 @@ export default {
     };
   },
   props: ["user", "following"],
-  components: { FollowButton },
 };
 </script>

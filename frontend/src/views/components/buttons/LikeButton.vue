@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import { socialService } from "../../services/social.service";
+import { socialService } from "../../../services/social.service";
 
 export default {
   props: ["liked", "post_id", "likes"],

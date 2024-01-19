@@ -65,7 +65,7 @@
           </div>
         </div>
         <div class="text-sm max-sm:text-xs" v-if="!validPassword && submitted">
-          <p>Password must have atleast:</p>
+          <p>Password must have at least:</p>
           <p>- 8 characters</p>
           <p>- 1 upper AND lower case character</p>
           <p>- 1 number</p>

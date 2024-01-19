@@ -6,7 +6,7 @@
   </div>
 </template>
 <script>
-import { postService } from "../../services/post.service";
+import { postService } from "../../../services/post.service";
 
 export default {
   inject: ["emitter"],
